@@ -427,28 +427,29 @@ LIMIT 7, 10; -- 7번째부터  ~ 10명
 
 SELECT *
 FROM employee
-WHERE job_code IN ('J7', 'J2') and salary > 2000000;
+WHERE job_code IN ('J7', 'J2') 
+	AND salary >= 2000000;
 
 -- 2 사수가 없고 부서배치도 받지 않은 사원들의 사원명 사수사번 (manager_id) 부서코드 조회
 
 SELECT 
 	emp_name,
-    emp_id,
     manager_id,
     dept_code
 FROM employee
-WHERE manager_id IS NULL AND dept_code IS NULL;
+WHERE manager_id IS NULL 
+	AND dept_code IS NULL;
 
 -- 3 연봉이 4000만원 이상이고 보너스를 받지 않은 사원들의 사번 , 사원명, 급여, 보너스 조회 
 SELECT 
 	emp_name,
     emp_id,
     salary,
-    manager_id,
     bonus,
     salary*12 연봉
 FROM employee
-WHERE (salary * 12) >= 40000000 and  bonus IS NULL;
+WHERE (salary * 12) >= 40000000 
+	AND  bonus IS NULL;
 
 
 -- 4 입사일이 '1995-01-01' 이상이고 부서배치를 받은 사원들의 사번, 사원명, 입사일(hire_date), 부서코드 조회 (정렬은 입사일 기준)
@@ -458,7 +459,8 @@ SELECT
     hire_date,
     dept_code
 FROM employee
-WHERE hire_date > '1995-01-01'
+WHERE hire_date > '1995-01-01' 
+	AND dept_code IS NOT NULL
 ORDER BY 3;
 
 
@@ -470,7 +472,9 @@ SELECT
     salary,
     bonus
 FROM employee
-WHERE (salary BETWEEN 2000000 AND 5000000) AND (hire_date > '2001-01-01')AND (bonus IS NULL);
+WHERE (salary BETWEEN 2000000 AND 5000000) 
+	AND (hire_date >= '2001-01-01')
+	AND (bonus IS NULL);
 
 
 -- 6 보너스 포함 연봉이 NULL이 아니고 이름에 '하'가 포함되어 있는 사원들의 사번, 사우너명, 급여, 보너스포함연봉 (별칭부여) 조회 
@@ -483,4 +487,9 @@ SELECT
     salary,
     (salary + salary * bonus) * 12 "보너스포함연봉" 
 FROM employee
-WHERE (emp_name LIKE '%하%') and((salary + salary * bonus) * 12 IS NOT NULL); 
+WHERE (emp_name LIKE '%하%') 
+	AND((salary + salary * bonus) * 12 IS NOT NULL)
+ORDER BY 보너스포함연봉 DESC; 
+-- 정렬을 별칭으로 사용하고 싶으면 단어만 가능 띄어쓰기 X  ex)보너스 포함 연봉 이런건 안댐
+
+
