@@ -13,12 +13,15 @@ ORDER BY actor_id, last_name;
 
 SELECT title
 FROM film_list
-WHERE (category in ('SCi-Fi','Family')) and rating = 'PG' and title LIKE '%GO%' ; 
+WHERE (category in ('SCi-Fi','Family')) 
+	and rating = 'PG' and title LIKE '%GO%' ; 
 
 -- 3. film_list 테이블에서 fid가 7 이하면서 4, 6은 아닌 fid, title 조회
 SELECT fid,title
 FROM film_list
-WHERE fid <= 7 and fid != 4 and fid != 6 ;
+WHERE fid <= 7 and 
+	-- fid != 4 and fid != 6 
+    not fid in ( 4 , 6 );
 
 
 -- 4. film_list 테이블에서 가격(price)은 2 이상 4 이하이면서 category가 Documentary거나 Animation이고 
@@ -27,20 +30,26 @@ WHERE fid <= 7 and fid != 4 and fid != 6 ;
 SELECT 
     title
 FROM film_list
-WHERE (price between 2 and 4 ) and (category = 'Documentary' or category = 'Animation') and(actors LIKE '%BOB%');
+WHERE (price between 2 and 4 ) 
+	and (category = 'Documentary' or category = 'Animation') 
+    and(actors LIKE '%BOB%');
 
 -- 5. address 테이블에서 district가 비어있지 않고 앞에 숫자 제외 주소만 10개 조회
 
-SELECT *
+SELECT 
+	regexp_replace(address, '[0-9]+.', "")
+-- regexp_replace(컬럼, 정규표현식, 대체되는글자)
 FROM address;
 
-SELECT district
-	,trim(LEADING (substr(address, 1, instr(address, ' '))) FROM address)
+SELECT 
+	-- trim(LEADING (substr(address, 1, instr(address, ' '))) FROM address)
+    substr(address, instr(address, ' ') + 1) adress, -- substr로 자르고 +1로 공백도 자름 
+    district ''
 FROM address
-
 WHERE district != ''
-ORDER BY 1;
--- district is not null) 
+ORDER BY 2, 1 DESC
+LIMIT 10;
+
 -- 6. customer_list 테이블에서 id가 6인 사람부터 10명 조회
 
 SELECT *
@@ -49,9 +58,14 @@ WHERE ID >=6
 ORDER BY 1
 LIMIT 10 ;
 
+SELECT *
+FROM customer_list
+ORDER BY 1
+LIMIT 5 , 10 ;
+
 -- 7. actor 테이블에서 J로 시작하는 이름과 글자수 조회 (공백 X, 정렬은 글자수가 많은 사람 순으로)
 
-SELECT concat( first_name ,last_name) 이름, 
+SELECT concat( first_name ,' ' ,last_name) 이름, 
 	char_length(concat(first_name,last_name)) 글자수
 FROM actor
 WHERE concat(first_name,last_name) LIKE 'J%'
@@ -59,11 +73,13 @@ ORDER BY 2 DESC;
 
 -- 8. film 테이블에서 description에서 of 이전 문장만 중복 없이 10개만 추출해서 조회
 
-SELECT distinct substr(description, 1, instr(description, 'of')-2)
+SELECT distinct substr(description, 1, instr(description, 'of')-2) 'of 이전 문장' 
+	--  substr(description 에서 , 1 번째부터 instr(description, 'of'를 기준으로) -2개(of) 더 자름 )
 FROM film
--- description LIKE '%of%'
+ORDER BY 1 DESC
 LIMIT 10 ;
--- distinct 로 중복은 제거 
+
+
 
 
 -- 9. film 테이블에서 replacement_cost 최소 비용과 최대 비용 조회
