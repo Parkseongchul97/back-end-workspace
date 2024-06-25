@@ -34,6 +34,7 @@ SELECT DISTINCT first_name,
 	last_name,
    title
 FROM actor
+-- 연결할 대상이 다수면 film_actor 처럼 다수가 연결되어 있는걸 먼저 걸면 접근성이 좋음! 
 	JOIN film_actor USING(actor_id)
     JOIN film USING(film_id)
 WHERE first_name = 'JULIA' 
@@ -47,14 +48,26 @@ SELECT DISTINCT first_name, last_name
 FROM actor
 	JOIN film_actor USING(actor_id)
     JOIN film USING(film_id)
-    
+
 WHERE title = 'NOON PAPI';
+
+-- 서브쿼리로 ?
+
+SELECT DISTINCT first_name, last_name
+FROM actor
+WHERE actor_id IN ( SELECT actor_id
+					FROM film_actor
+					WHERE  film_id = (SELECT film_id 
+									  FROM film 
+									  WHERE title = 'NOON PAPI'));
+
 
 
 -- 4. 각 카테고리별 이메일이 JOYCE.EDWARDS@sakilacustomer.org인 고객이 빌린 DVD 대여 수 조회
 SELECT  name category, count(name) count
 	
 FROM customer
+	-- 이것도 rental이 2개이상 가지고 있으니 rental 부터 거는걸 추천 
     JOIN rental USING(customer_id)
     JOIN inventory USING(inventory_id)
     JOIN film_category USING(film_id)
@@ -62,22 +75,53 @@ FROM customer
 WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org'
 GROUP BY name ;
 
+-- 서브쿼리 
+
+SELECT  name category, count(name) count	
+FROM rental
+    JOIN inventory USING(inventory_id)
+    JOIN film_category USING(film_id)
+    JOIN category USING(category_id)
+WHERE customer_id = (SELECT customer_id
+					 FROM customer
+					 WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org')
+GROUP BY name ;
+
+
+
 
 
 -- 5. 이메일이 JOYCE.EDWARDS@sakilacustomer.org인 고객이 가장 최근에 빌린 영화 제목과 영화 내용을 조회 
 SELECT  
 	title
     ,description	
-FROM customer
-    JOIN rental USING(customer_id)
+FROM rental 
+    JOIN customer USING(customer_id)
     JOIN inventory USING(inventory_id)
-    JOIN film_category USING(film_id)
-    JOIN category USING(category_id)
     JOIN film USING(film_id)
 WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org'
 ORDER BY rental_date DESC
 LIMIT 1;
 	
+-- 서브쿼리 
+
+SELECT  
+	title
+    ,description	
+FROM rental 
+    JOIN inventory USING(inventory_id)
+    JOIN film USING(film_id)
+WHERE rental_date = (SELECT max(rental_date)
+					 FROM rental 
+					 JOIN customer USING(customer_id)
+					 WHERE email = 'JOYCE.EDWARDS@sakilacustomer.org')
+ORDER BY rental_date DESC
+LIMIT 1;
+
+
+	
+
+
 
 
 
