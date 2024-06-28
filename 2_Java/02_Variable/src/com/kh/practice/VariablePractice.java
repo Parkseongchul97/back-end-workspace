@@ -3,6 +3,7 @@ package com.kh.practice;
 import java.util.Scanner;
 
 public class VariablePractice {
+	Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
@@ -35,8 +36,9 @@ public class VariablePractice {
 		int man = 10000;
 		int cld = 7000;
 		int manCount = 2;
-		int cldCount = 2;
+		int cldCount = 3;
 		int sum = man * manCount + cld * cldCount;
+
 	
 		
 		System.out.printf("티켓 가격은 성인 %d원 청소년 %d원 일때, \n성인 %d명과 청소년 %d명이 영화를 보면 지불해야할 총금액은 %d원이다.\n\n"
@@ -60,21 +62,11 @@ public class VariablePractice {
 		int z = 9;
 		
 		
-		int var = x;
+		int var = x; // 변수하나로 돌려막기 
 		x = y; 
 		y = z;
 		z = var;
 		
-		/*int two = 2;   
-		 * x = x + two;
-		 * y = x - two;
-		 * z = z + two + two; 
-		 */
-		
-		/* x += 2;   셋중 뭐가 맞는 답인가요
-		 * y -= 2;
-		 * z += 4;
-		 */
 		
 		
 		
@@ -93,13 +85,12 @@ public class VariablePractice {
 	 * 나누기 몫 : 3
 	 * */
 	public void method3() {
-		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("첫번째 정수 : ");
+		System.out.print("첫 번째 정수 : ");
 		int frist = Integer.parseInt(sc.nextLine())  ;
 		
 		
-		System.out.print("두번째 정수 : ");
+		System.out.print("두 번째 정수 : ");
 		int secend = Integer.parseInt(sc.nextLine())  ;
 		
 	
@@ -119,7 +110,6 @@ public class VariablePractice {
 	 * 둘레 : 110.4
 	 * */
 	public void method4() {
-		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("가로 : ");
 		double width = Double.parseDouble(sc.nextLine())  ;
@@ -143,7 +133,6 @@ public class VariablePractice {
 	 * 마지막 문자 : e
 	 * */
 	public void method5() {
-		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("문자열을 입력하시오 : ");
 		String string = sc.nextLine()  ;
@@ -165,7 +154,6 @@ public class VariablePractice {
 	 * B unicode : 66
 	 * */
 	public void method6() {
-		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("문자를 입력하시오 : ");
 		char ch = sc.nextLine().charAt(0);
@@ -187,7 +175,6 @@ public class VariablePractice {
 	 * 평균 : 72.67
 	 * */
 	public void method7() {
-		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("국어 : ");
 		int korean = Integer.parseInt(sc.nextLine())  ;
@@ -203,7 +190,7 @@ public class VariablePractice {
 		
 		int sum = korean + math + english;
 		
-		double avg = ((double)korean + (double)math + (double)english) / 3;
+		double avg = (double)(sum) / 3;
 		
 		System.out.printf("총점 : %d\n평균 : %.2f",
 				sum, avg);
