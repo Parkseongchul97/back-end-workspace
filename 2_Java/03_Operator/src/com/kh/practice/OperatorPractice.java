@@ -49,11 +49,11 @@ public class OperatorPractice {
 
 	//3개의 수를 입력 받아 입력 받은 수가 모두 같으면 true, 아니면 false를 출력하세요.
 	public void method3() {
-		System.out.print("숫자를 입력하시오 : ");
+		System.out.print("첫번째 숫자를 입력하시오 : ");
 		int num1 = Integer.parseInt(sc.nextLine());
-		System.out.print("숫자를 입력하시오 : ");
+		System.out.print("두번째 숫자를 입력하시오 : ");
 		int num2 = Integer.parseInt(sc.nextLine());
-		System.out.print("숫자를 입력하시오 : ");
+		System.out.print("세번째 숫자를 입력하시오 : ");
 		int num3 = Integer.parseInt(sc.nextLine());
 		boolean one = num1 == num2 && num2 == num3;
 		
@@ -77,8 +77,10 @@ public class OperatorPractice {
 	public void method5() {
 		System.out.print("주민등록번호 13자리를 '-' 포함하여 입력하십시오. : ");
 		char ch = sc.nextLine().charAt(7);
-		String gender = ch == '1' ? "남자" : ch == '2' ? "여자" : "잘못된 값입니다." ;
-		System.out.println("당신은 " + gender + "입니다.");
+		String gender = ch == '1' || ch == '3' ? "남자 입니다." : 
+						ch == '2' || ch == '4' ? "여자 입니다." : "잘못된 값입니다." ;
+		
+		System.out.println(gender);
 		System.out.println();
 		
 	}
@@ -88,7 +90,8 @@ public class OperatorPractice {
 	public void method6() {
 		System.out.print("나이를 입력하시오 : ");
 		int age = Integer.parseInt(sc.nextLine());
-		String year = age <= 13 ? "어린이 입니다." :  13 < age && age <= 19 ? "청소년입니다." : "성인입니다." ;
+		String year = age <= 13 ? "어린이 입니다." :  
+					  age <= 19 ? "청소년 입니다." : "성인 입니다." ;
 		System.out.println("당신은 " + year);
 		System.out.println();
 		
@@ -105,9 +108,12 @@ public class OperatorPractice {
 		
 		int appleBox = apple % boxSize > 1 ? apple / boxSize : (apple / boxSize)+1;
 		
+		int appleBox2 = apple / boxSize + (apple % boxSize > 1 ? 0 : 1);
 		
-		System.out.printf("필요한 바구니의 숫자는 %d개 입니다.", appleBox);
-		System.out.println();
+		
+		System.out.printf("필요한 바구니의 숫자는 %d개 입니다.\n\n"
+				+ 		  "필요한 바구니의 숫자는 %d개 입니다.\\n\\n", appleBox ,appleBox2);
+		
 		// 사과 100 바구니 사이즈 3 이면 바구니 34개 필요
 		// 단순히 나눈게아니라 나머지 값이 1 이상이면 +1 해야함
 		
