@@ -1,5 +1,6 @@
 package com.kh.practice;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class ConditionPractice {
@@ -8,28 +9,28 @@ public class ConditionPractice {
 	public static void main(String[] args) {
 		ConditionPractice c = new ConditionPractice();
 		
-		System.out.println("------------Q1-----------");
-		c.method1();
-		System.out.println("------------Q2-----------");
-		c.method2();
-		System.out.println("------------Q3-----------");
+//		System.out.println("------------Q1-----------");
+//		c.method1();
+//		System.out.println("------------Q2-----------");
+//		c.method2();
+//		System.out.println("------------Q3-----------");
 		c.method3();
-		System.out.println("------------Q4-----------");
-		c.method4();
-		System.out.println("------------Q5-----------");
-		c.method5();
-		System.out.println("------------Q6-----------");
-		c.method6();
-		System.out.println("------------Q7-----------");
-		c.method7();
-		System.out.println("------------Q8-----------");
-		c.method8();
-		System.out.println("------------Q9-----------");
-		c.method9();
-		System.out.println("------------Q10-----------");
-		c.method10();
-		System.out.println("------------Q11-----------");
-		c.method11();
+//		System.out.println("------------Q4-----------");
+//		c.method4();
+//		System.out.println("------------Q5-----------");
+//		c.method5();
+//		System.out.println("------------Q6-----------");
+//		c.method6();
+//		System.out.println("------------Q7-----------");
+//		c.method7();
+//		System.out.println("------------Q8-----------");
+//		c.method8();
+//		System.out.println("------------Q9-----------");
+//		c.method9();
+//		System.out.println("------------Q10-----------");
+//		c.method10();
+//		System.out.println("------------Q11-----------");
+//		c.method11();
 	
 	}
 
@@ -43,7 +44,7 @@ public class ConditionPractice {
     public void method1() {
     	System.out.print("정수를 입력하시오 : ");
     	int num = Integer.parseInt(sc.nextLine());
-    	if (num < 0) {
+    	if (num <= 0) { // 0은 양수가 아님!!
     		System.out.println("양수만 입력해 주세요.");
     	}else if(num % 2 == 0) {
     		System.out.println("짝수다");
@@ -68,12 +69,12 @@ public class ConditionPractice {
     	int num1 = Integer.parseInt(sc.nextLine());
     	System.out.print("두번째 정수를 입력하시오 : ");
     	int num2 = Integer.parseInt(sc.nextLine());
-    	int result;
+    	int result = -1;
     	if(num1 == num2) {
     		result = 1;
-    	}else {
+    	}/*else {			// 기본값을 -1로 해두면 else문 절약 가능! 결과가 2개기 때문 
     		result = -1;
-    	}
+    	}*/
     	System.out.println("결과값 : " + result);
     }
 
@@ -92,15 +93,13 @@ public class ConditionPractice {
     	System.out.print("피자 먹는 사람 수 : ");
     	int man = Integer.parseInt(sc.nextLine());
     	
-    	int pizzabox = man / pizza;
-    	if (man % pizza  >= 1) {
-    		pizzabox += 1;	
-    	}else {
-    		
-    	}
+    	int pizzabox = man / pizza; // 나머지 값도 != 로 0아닌걸로 깔끔하게!
+    	if (man % pizza  != 0) pizzabox++; // 어짜피 1 더하는 거니까 += 보다는 ++이 간결 	
+    	
     		
     	System.out.println("최소 피자 판수 : " + pizzabox);
         
+
     }
 
     /*
@@ -127,8 +126,9 @@ public class ConditionPractice {
     	int score2 = Integer.parseInt(sc.nextLine());
     	System.out.print("영어 점수 : ");
     	int score3 = Integer.parseInt(sc.nextLine());
-    	int sum = score1+score2+score3;
-    	double avg = sum/3;
+    	
+    	int sum = score1 + score2 + score3;
+    	double avg = (double)sum/3; // 둘다 int 니까 하나를 실수로 바꿔줘야 소숫점 제대로 나옴!
     	
     	if(score1 >= 40 && score2 >= 40 && score3 >= 40 && avg >= 60) {
     		System.out.printf("합계 : %d \n평균 : %.1f\n축하합니다, 합격입니다!\n",sum,avg);	
@@ -148,14 +148,13 @@ public class ConditionPractice {
     	System.out.print("구매한 옷 가격 : ");
     	int price = Integer.parseInt(sc.nextLine());
     	int result = price;
-    	if(price >= 100000) {
-    		result *= 0.95;
-    	}else if (price >= 300000) {
-    		result *= 0.90;
-    	}else if (price >= 500000) {
-    		result *= 0.80;
-    	}
-    	System.out.println("지불할 금액 : " + result);
+    	if(price >= 500000)		  result *= 0.8;
+    	else if (price >= 300000) result *= 0.9;
+    	else if (price >= 100000) result *= 0.95;
+    	
+    	DecimalFormat df = new DecimalFormat("###,###"); // MySQL에서 format() 함수처럼 사용하는 자바에서 제공하는 클래스 
+    	
+    	System.out.println("지불할 금액 : " + df.format(result));
     	
     }
 
@@ -209,16 +208,22 @@ public class ConditionPractice {
     	String id = sc.nextLine();
     	System.out.print("비밀번호 : ");
     	String pw = sc.nextLine();
+    	
+    	String idCheck = "happy";
+    	String pwCheck = "1234";
+    	
     	String result = "";
-    	if(id.equals("happy")&&pw.equals("1234")) {
+    	
+    	if(id.equals(idCheck)&&pw.equals(pwCheck)) {
     		result = "로그인 성공!";
-    	}else if(!id.equals("happy")&&pw.equals("1234")) {
+    	}else if(!id.equals(idCheck)&&pw.equals(pwCheck)) {
     		result = "아이디가 틀렸습니다!";
-    	}else if(id.equals("happy")&&!pw.equals("1234")) {
+    	}else if(id.equals(idCheck)&&!pw.equals(pwCheck)) {
     		result = "비밀번호가 틀렸습니다!";
     	}else {
-    		result = "로그인 실패";
-    	}
+    		result = "로그인 실패"; 
+    	}// 로그인 실패하는 조건문을 두번째로 걸면 뒤에 꺼는 and 연산자 사용 안하면서 1개씩만 걸어도됨
+    	// 둘다 성공하는상황! 둘다 실패하는 상황을 걸었으면!
     	System.out.println(result);
 
     }
@@ -242,18 +247,13 @@ public class ConditionPractice {
     	System.out.print("몸무게(kg)를 입력해 주세요 : ");
     	double weight = Double.parseDouble(sc.nextLine());
     	double bmi = weight / (stature * stature) * 10000;
-    	String beeman = "";
-    	if(bmi < 18.5) {
-    		beeman = "저체중";
-    	}else if(bmi < 23) {
-    		beeman = "정상체중";
-    	}else if(bmi < 25) {
-    		beeman = "과체중";
-    	}else if(bmi < 30) {
-    		beeman = "비만";
-    	}else {
-    		beeman = "고도비만";
-    	}
+    	String beeman = "고도비만";
+    	if(bmi < 18.5)	  beeman = "저체중";
+    	else if(bmi < 23) beeman = "정상체중";
+    	else if(bmi < 25) beeman = "과체중";
+    	else if(bmi < 30) beeman = "비만";
+    	//else 			  beeman = "고도비만";  기본값을 고도비만으로 설정하면 else 문 안써도 됨 !
+    	
     	System.out.printf("BMI 지수 : %.15f \n%s\n",bmi,beeman);
     }
 
@@ -271,11 +271,14 @@ public class ConditionPractice {
     public void method9() {
     	System.out.print("첫번째 숫자 입력 : ");
     	int num1 = Integer.parseInt(sc.nextLine());
+    	
     	System.out.print("두번째 숫자 입력 : ");
     	int num2 = Integer.parseInt(sc.nextLine());
+    	
     	System.out.print("연산자를 입력(+,-,*,/,%) : ");
     	char giho = sc.nextLine().charAt(0);
-    	if(num1 < 0 || num2 < 0) {
+    	
+    	if(num1 <= 0 || num2 <= 0) {
     		System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
     	}else if(giho == '+') {
     		System.out.printf("%d %s %d = %d\n",num1,giho,num2,(num1+num2));
@@ -291,8 +294,34 @@ public class ConditionPractice {
     		System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
     	}
     	
-    
-
+    	
+    	if(num1 <= 0 || num2 <= 0) {
+    		System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
+    		return; // 양수 아닌걸 거르는 if 문 작성후 조건 해당 X 시 뒤에 코드 실행 X 
+    	}
+    	int result = 0 ;
+    	
+    	switch (giho) {
+		case '+' :
+			result = num1 + num2;
+			break;
+		case '-' :
+			result = num1 - num2;
+			break;
+		case '*' :
+			result = num1 * num2;
+			break;
+		case '/' :
+			result = num1 / num2;
+			break;
+		case '%' :
+			result = num1 % num2;
+			break;
+		default :
+			System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
+			return; // 해당 method를 종료한다!  아래에 printf 문이 출력 X 아래로 안내려가서!
+    	}
+    	System.out.printf("%d %s %d = %d\n",num1,giho,num2,result);
     }
 
     /*
@@ -307,7 +336,7 @@ public class ConditionPractice {
         조회 메뉴입니다.
      */
     public void method10() {
-    	System.out.printf("1. 입력\n2. 수정\n3. 조회\n4. 삭제\n9.종료\n");
+    	System.out.printf("1. 입력\n2. 수정\n3. 조회\n4. 삭제\n9. 종료\n");
     	System.out.print("매뉴 번호를 입력하세요 : ");
     	int num = Integer.parseInt(sc.nextLine());
     	String menu = "";
@@ -327,8 +356,6 @@ public class ConditionPractice {
     		case 9 :
     		menu = "프로그램이 종료됩니다.";
     		break;
-    		default :
-    		menu = "잘못된 번호입니다.";
     	}
     	System.out.println(menu);
     }
@@ -381,40 +408,50 @@ public class ConditionPractice {
     public void method11() {
     	System.out.print("중간 고사 점수 : ");
     	int medleScore1 = Integer.parseInt(sc.nextLine());
+    	
     	System.out.print("기말 고사 점수 : ");
     	int lastScore1 = Integer.parseInt(sc.nextLine());
+    	
     	System.out.print("과제 점수 : ");
     	int assignment1 = Integer.parseInt(sc.nextLine());
+    	
     	System.out.print("출석 횟수 : ");
     	int count = Integer.parseInt(sc.nextLine());
-    	double medleScore2 = medleScore1*0.2;
-    	double lastScore2 = lastScore1*0.3;
-    	double assignment2 = assignment1*0.3;
-   
+    	
+    	System.out.println("===========결과===========");
+    	
+		double medleScore2 = medleScore1 * 0.2;
+		double lastScore2 = lastScore1 * 0.3;
+		double assignment2 = assignment1 * 0.3;
+    	
     	double avg = medleScore2 + lastScore2 + assignment2 + count;
     	
 
-    	if(count >= 14 && avg >= 70) {
-    		System.out.println("===========결과===========");
-        	System.out.println("중간 고사 점수(20) : " + medleScore2);
-        	System.out.println("기말 고사 점수(30) : " + lastScore2);
-        	System.out.println("과제 점수(30) : " + assignment2);
-        	System.out.println("출석 점수(20) : " + count);
-        	System.out.println("총점 : " + avg);
-        	System.out.println("PASS");	
-    	}else if(count >= 14 && avg < 70) {
-    		System.out.println("===========결과===========");
-        	System.out.printf("FAIL [점수 미달] (총점 %.1f)\n", avg);	
-    	}else if(count < 14 && avg >= 70) {
-    		System.out.println("===========결과===========");
-        	System.out.printf(" FAIL [출석 횟수 부족] (%d/20)\n", count);	
-    	}else if(count < 14 && avg < 70) {
-    		System.out.println("===========결과===========");
-    		System.out.printf(" FAIL [출석 횟수 부족] (%d/20)\n", count);
-    		System.out.printf("FAIL [점수 미달] (총점 %.1f)\n", avg);	
-        		
-    	}
+		if (count >= 14 && avg >= 70)
+			System.out.printf(
+					"중간 고사 점수(20) : %.1f\n기말 고사 점수(30) : %.1f\n과제 점수(30) : %.1f\n출석 점수(20) : %d\n총점 : %.1f\nPASS\n",
+					medleScore2, lastScore2, assignment2, count, avg);
+		else if (count < 14 && avg < 70)
+			System.out.printf("FAIL [출석 횟수 부족] (%d/20)\nFAIL [점수 미달] (총점 %.1f)\n", count, avg);
+		else if (count < 14)
+			System.out.printf("FAIL [출석 횟수 부족] (%d/20)\n", count);
+		else
+			System.out.printf("FAIL [점수 미달] (총점 %.1f)\n", avg);
     	
+    	
+		// 미달 경우에 else에 if 각각 걸어둬서 간략화 가능!
+		if (count >= 14 && avg >= 70) {
+			System.out.printf(
+					"중간 고사 점수(20) : %.1f\n기말 고사 점수(30) : %.1f\n과제 점수(30) : %.1f\n출석 점수(20) : %d\n총점 : %.1f\nPASS\n",
+					medleScore2, lastScore2, assignment2, count, avg);
+		} else {
+			if (count < 14)
+				System.out.printf("FAIL [출석 횟수 부족] (%d/20)\n", count);
+			if (avg < 70)
+				System.out.printf("FAIL [점수 미달] (총점 %.1f)\n", avg);
+		}
+
     }
+
     
 }
