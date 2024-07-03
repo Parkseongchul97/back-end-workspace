@@ -7,16 +7,16 @@ class LoopPractice {
 	Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		LoopPractice l = new LoopPractice();
-		System.out.println("\n-------------Q1-----------\n");
-		l.method1();
-		System.out.println("\n-------------Q2-----------\n");
-		l.method2();
-		System.out.println("\n-------------Q3-----------\n");
-		l.method3();
-		System.out.println("\n-------------Q4-----------\n");
-		l.method4();
-		System.out.println("\n-------------Q5-----------\n");
-		l.method5();
+//		System.out.println("\n-------------Q1-----------\n");
+//		l.method1();
+//		System.out.println("\n-------------Q2-----------\n");
+//		l.method2();
+//		System.out.println("\n-------------Q3-----------\n");
+//		l.method3();
+//		System.out.println("\n-------------Q4-----------\n");
+//		l.method4();
+//		System.out.println("\n-------------Q5-----------\n");
+//		l.method5();
 		System.out.println("\n-------------Q6-----------\n");
 		l.method6();
 		
@@ -194,18 +194,20 @@ class LoopPractice {
 		for (int i = 1; i != 0; i++) {
 			System.out.print("가위바위보 : ");
 			str = sc.nextLine();
+			System.out.println("-----------------");
+			// 가위, 바위 , 보 간의 상하관계를 만들어서 승 패 무 ?
 			if ((str.equals("가위")) || (str.equals("바위")) || (str.equals("보"))) {
 				random = (int) (Math.random() * 3);
 				System.out.println("컴퓨터 : " + com[random]);
 				System.out.println(name + " : " + str);
-				if (	(str.equals("가위") && com[random].equals("가위")) || 
-						(str.equals("바위") && com[random].equals("바위"))|| 
-						(str.equals("보") && com[random].equals("보"))) {
+				if (	(str.equals("가위") && random == 0) || 
+						(str.equals("바위") && random == 1)|| 
+						(str.equals("보") && random == 2)) {
 					drow++;
 					System.out.println("비겼습니다.\n\n");
-				} else if ((str.equals("가위") && com[random].equals("바위"))
-						|| (str.equals("바위") && com[random].equals("보"))
-						|| (str.equals("보") && com[random].equals("가위"))) {
+				} else if ((str.equals("가위") && random == 0)
+						|| (str.equals("바위") && random == 1)
+						|| (str.equals("보") && random == 2)) {
 					lose++;
 					System.out.println("졌습니다. ㅠㅠ\n\n");
 				} else {
@@ -222,6 +224,41 @@ class LoopPractice {
 			}
 
 		}
+    	
+    	
+    		// 배열 얕은복사로 경우 만들고 equals 안쓰면서 승패...
+			// str에 입력한 값이 가위면 0 바위면 1 보면 2 불러오기 해당 숫자가 랜덤과 일치시 무승부? <- 똑같이 길고 복잡함 
+	
+			// 랜덤으로 승 패 무 나누고 각자 경우 맞춰서 컴퓨터에 단순히 가위 바위 보 출력?
+    	
+//		for (int i = 1; i != 0; i++) {
+//			System.out.print("가위바위보 : ");
+//			str = sc.nextLine();
+//			System.out.println("-----------------");
+//			if (random == 0) {
+//				drow++;
+//				if((str.equals("가위"))) System.out.printf("컴퓨터 : 가위\n%s : %s\n비겼습니다.\n\n" ,name, str);
+//				if((str.equals("바위"))) System.out.printf("컴퓨터 : 바위\n%s : %s\n비겼습니다.\n\n" ,name, str);
+//				if((str.equals("보"))) System.out.printf("컴퓨터 : 보\n%s : %s\n비겼습니다.\n\n" ,name, str);	
+//				break;
+//			}
+//			if (random == 1) {
+//				lose++;
+//				if((str.equals("가위"))) System.out.printf("컴퓨터 : 바위\n%s : %s\n졌습니다. ㅠㅠ\n\n" ,name, str);
+//				if((str.equals("바위"))) System.out.printf("컴퓨터 : 보\n%s : %s\n졌습니다. ㅠㅠ\n\n" ,name, str);
+//				if((str.equals("보"))) System.out.printf("컴퓨터 : 가위\n%s : %s\n졌습니다. ㅠㅠ\n\n" ,name, str);	
+//				break;
+//			}else {
+//				win++;
+//				if((str.equals("가위"))) System.out.printf("컴퓨터 : 보\n%s : %s\n이겼습니다!\n" ,name, str);
+//				if((str.equals("바위"))) System.out.printf("컴퓨터 : 가위\n%s : %s\n이겼습니다!\n" ,name, str);
+//				if((str.equals("보"))) System.out.printf("컴퓨터 : 바위\n%s : %s\n이겼습니다!\n" ,name, str);
+//				System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : %d\n", drow, lose, win);
+//			}
+//		}
+    	
+    	
+
 
 	}
     }
