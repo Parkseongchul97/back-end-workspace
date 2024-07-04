@@ -254,6 +254,7 @@ SELECT now(), adddate(now(), interval 10 day),
     subdate(now(), interval 50 year), -- 뒤에 단위만큼 뺌
     addtime(now(), "01:00:00"), -- 시간추가
     subtime(now(), "03:00:00"); -- 시간빼기
+   
     
 -- 직원명, 입사일 , 입사후 6개월 날짜
 SELECT 
@@ -508,6 +509,8 @@ WHERE ent_yn = 'Y';
 
 
 -- 실습문제
+
+
 
     
     

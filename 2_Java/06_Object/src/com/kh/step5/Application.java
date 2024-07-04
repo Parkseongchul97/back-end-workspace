@@ -17,10 +17,13 @@ public class Application {
 		book2.setPrice(18000);
 		book2.setDiscountRate(0.2);
 		
+		b.getPrice();
+		System.out.println(b.getPrice());
 		System.out.println(book2);
 
 		System.out.println(book2.getTitle());
 		System.out.println(book1.getTitle());
+		
 		
 		// 허송세월의 원래 가격은 18000, 할인된 가격은 14400원
 		System.out.printf("%s의 원래 가격은 %d, 할인된 가격은 %d원\n\n",book2.getTitle(),book2.getPrice(),

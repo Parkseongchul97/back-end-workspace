@@ -1,5 +1,6 @@
 package com.kh.practice;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 class LoopPractice {
@@ -60,7 +61,28 @@ class LoopPractice {
     			break;
     			}
     	}
-
+    	
+    	// while 문으로
+//    	int num = 1; break 사용할 때
+    	int sum2 = 0;
+    	int num = 0;
+    	while(sum2 < 100) {
+    		num++;
+    		if(num % 2 == 0) {
+    			sum2 -= num;
+    		}else {
+    			sum2 += num;
+    		}
+    		
+    		/*
+    		if (sum2 >= 100) {
+    			System.out.println(num);
+    			break;
+    			
+    			num++;
+    		}*/			
+    }
+    	System.out.println(num); // while에 조건을 건 경우 
     }
 
     /*
@@ -86,6 +108,13 @@ class LoopPractice {
     		}
     	}
 		System.out.printf("%s 안에 포함된 %c 개수 : %d\n", str, ch, count);
+		
+		// 향상된 for 문 
+		for(char s : str.toCharArray()) {
+			if(s == ch) count++;
+			
+		}
+		System.out.printf("%s 안에 포함된 %c 개수 : %d\n", str, ch, count/2);
 
     }
 
@@ -109,7 +138,13 @@ class LoopPractice {
     			break;
     		}
     	}
-  
+    	// while 문으로
+    
+    	while(true) {
+    		int random = (int)(Math.random()* 11);
+    		System.out.println(random);
+    		if (random == 0)break;
+    	}
     	
     }
 
@@ -129,33 +164,33 @@ class LoopPractice {
     	int[] num = new int[6];
     	int dice = 0;
 		for (int i = 1; i <= 10; i++) {
-			dice = (int) (Math.random() * 6 + 1); // 1 ~ 6 6개의 숫자
-			switch (dice) {
-					case 1:
-						num[0]++;
-						break;
-					case 2:
-						num[1]++;
-						break;
-					case 3:
-						num[2]++;
-						break;
-					case 4:
-						num[3]++;
-						break;
-					case 5:
-						num[4]++;
-						break;
-					case 6:
-						num[5]++;
-						break;
-			}
-
-		}
-		for (int i = 1; i <= 6; i++) {
+			dice = (int) (Math.random() * 6 ); // 0 ~ 5 6개의 숫자
+			num[dice]++; // 아래 switch case 문을 1줄로 
+		}// 각자 인덱스번호 == 카운트 니까 맞는경우 ++ 느낌
+		for (int i = 1; i <= num.length; i++) {
 			System.out.printf("%d : %d\n", i,num[i-1]);
 		}
 	}
+//	switch (dice) {
+//	case 1:
+//		num[0]++;
+//		break;
+//	case 2:
+//		num[1]++;
+//		break;
+//	case 3:
+//		num[2]++;
+//		break;
+//	case 4:
+//		num[3]++;
+//		break;
+//	case 5:
+//		num[4]++;
+//		break;
+//	case 6:
+//		num[5]++;
+//		break;
+//}
 
     /*
         사용자의 이름을 입력하고 컴퓨터와 가위바위보를 하세요. 
@@ -189,31 +224,32 @@ class LoopPractice {
     	int random = 0;
     	int win = 0;
     	int lose = 0;
-    	int drow = 0;
+    	int draw = 0;
     	
 		for (int i = 1; i != 0; i++) {
 			System.out.print("가위바위보 : ");
 			str = sc.nextLine();
 			System.out.println("-----------------");
-			// 가위, 바위 , 보 간의 상하관계를 만들어서 승 패 무 ?
-			if ((str.equals("가위")) || (str.equals("바위")) || (str.equals("보"))) {
+			// 
+			int player = Arrays.asList(com).indexOf(str);
+			if (0 == player || 1 == player || 2 == player ) {
 				random = (int) (Math.random() * 3);
 				System.out.println("컴퓨터 : " + com[random]);
 				System.out.println(name + " : " + str);
-				if (	(str.equals("가위") && random == 0) || 
-						(str.equals("바위") && random == 1)|| 
-						(str.equals("보") && random == 2)) {
-					drow++;
+				
+				if (player == random) {
+					draw++;
 					System.out.println("비겼습니다.\n\n");
-				} else if ((str.equals("가위") && random == 0)
-						|| (str.equals("바위") && random == 1)
-						|| (str.equals("보") && random == 2)) {
+					
+				} else if ((player == 2 && random == 0)
+						|| (player == 1 && random == 1)
+						|| (player == 0 && random == 2)) {
 					lose++;
 					System.out.println("졌습니다. ㅠㅠ\n\n");
 				} else {
 					win++;
 					System.out.println("이겼습니다 !");
-					System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : %d", drow, lose, win);
+					System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : %d\n", draw, lose, win);
 
 				}
 				if (win >= 1)
@@ -224,36 +260,148 @@ class LoopPractice {
 			}
 
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		 *   	System.out.print("당신의 이름을 입력해 주세요 : ");
+    	String name = sc.nextLine();
+    	String str = "";
     	
+    	
+    	String[] com = {"가위", "바위","보"};
+    	int random = 0;
+    	int win = 0;
+    	int lose = 0;
+    	int draw = 0;
+    	
+		for (int i = 1; i != 0; i++) {
+			System.out.print("가위바위보 : ");
+			str = sc.nextLine();
+			System.out.println("-----------------");
+			// 가위, 바위 , 보 간의 상하관계를 만들어서 승 패 무 ?
+			if ((str.equals("가위")) || (str.equals("바위")) || (str.equals("보"))) {
+				random = (int) (Math.random() * 3);
+				System.out.println("컴퓨터 : " + com[random]);
+				System.out.println(name + " : " + str);
+				int player = Arrays.asList(com).indexOf(str);
+				if (	(str.equals("가위") && random == 0) || 
+						(str.equals("바위") && random == 1)|| 
+						(str.equals("보") && random == 2)) {
+					draw++;
+					System.out.println("비겼습니다.\n\n");
+				} else if ((str.equals("가위") && random == 0)
+						|| (str.equals("바위") && random == 1)
+						|| (str.equals("보") && random == 2)) {
+					lose++;
+					System.out.println("졌습니다. ㅠㅠ\n\n");
+				} else {
+					win++;
+					System.out.println("이겼습니다 !");
+					System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : %d\n", draw, lose, win);
+
+				}
+				if (win >= 1)
+					break;
+			} else {
+				System.out.println("가위, 바위, 보 를 정확히 입력하십시오.\n\n");
+
+			}
+
+		}
+		 * */
+//		// 풀이
+//    	System.out.print("당신의 이름을 입력해 주세요 : ");
+//    	String name2 = sc.nextLine();
+//    	String[] rps = {"가위", "바위","보"};
+//    	int win2 = 0;
+//    	int lose2 = 0;
+//    	int draw2 = 0;
+//    	
+//    	while(true) {
+//    		System.out.print("가위바위보 : ");
+//    		String input = sc.nextLine();
+//    		// 0 가위 1 바위 2 보
+//    		int computer = (int) (Math.random() * 3);
+//    		
+//    		
+//    		System.out.println("컴퓨터 : " + rps[computer]);
+//			System.out.println(name2 + " : " + input);
+//			//***************** 배열에서 값으로 인덱스 찾기 -> 사용자가 입력한 값을 숫자로!
+//			int number = Arrays.asList(rps).indexOf(input);
+//			if(computer == number) {
+//				System.out.println("비겼습니다.\n\n");
+//				draw2++;
+//				// 비긴경우
+//			}else if((number == 0 && computer == 2) || 
+//					 (number == 1 && computer == 0) ||
+//					 (number == 2 && computer == 1) ) {
+//				win2++;
+//				System.out.println("이겼습니다 !");
+//				System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : %d\n", draw2, lose2, win2);
+//				break;
+//				// 이긴경우
+//			}else {
+//				// 진 경우
+//				lose2++;
+//				System.out.println("졌습니다. ㅠㅠ\n\n");
+//			}
+//			
+//			
+//    		
+//    		
+//    	}
+//		
+//    	
     	
     		// 배열 얕은복사로 경우 만들고 equals 안쓰면서 승패...
 			// str에 입력한 값이 가위면 0 바위면 1 보면 2 불러오기 해당 숫자가 랜덤과 일치시 무승부? <- 똑같이 길고 복잡함 
 	
 			// 랜덤으로 승 패 무 나누고 각자 경우 맞춰서 컴퓨터에 단순히 가위 바위 보 출력?
+			// 이것도 더길어진거같음..
     	
-//		for (int i = 1; i != 0; i++) {
-//			System.out.print("가위바위보 : ");
-//			str = sc.nextLine();
-//			System.out.println("-----------------");
+//		for (int i = random; i == random; i =random) {
+//			random = (int) (Math.random() * 3);
+//
 //			if (random == 0) {
+//				System.out.print("가위바위보 : ");
+//				str = sc.nextLine();
+//				System.out.println("-----------------");
 //				drow++;
 //				if((str.equals("가위"))) System.out.printf("컴퓨터 : 가위\n%s : %s\n비겼습니다.\n\n" ,name, str);
 //				if((str.equals("바위"))) System.out.printf("컴퓨터 : 바위\n%s : %s\n비겼습니다.\n\n" ,name, str);
 //				if((str.equals("보"))) System.out.printf("컴퓨터 : 보\n%s : %s\n비겼습니다.\n\n" ,name, str);	
-//				break;
+//				
 //			}
 //			if (random == 1) {
+//				System.out.print("가위바위보 : ");
+//				str = sc.nextLine();
+//				System.out.println("-----------------");
 //				lose++;
 //				if((str.equals("가위"))) System.out.printf("컴퓨터 : 바위\n%s : %s\n졌습니다. ㅠㅠ\n\n" ,name, str);
 //				if((str.equals("바위"))) System.out.printf("컴퓨터 : 보\n%s : %s\n졌습니다. ㅠㅠ\n\n" ,name, str);
 //				if((str.equals("보"))) System.out.printf("컴퓨터 : 가위\n%s : %s\n졌습니다. ㅠㅠ\n\n" ,name, str);	
-//				break;
+//				
 //			}else {
+//				System.out.print("가위바위보 : ");
+//				str = sc.nextLine();
+//				System.out.println("-----------------");
 //				win++;
 //				if((str.equals("가위"))) System.out.printf("컴퓨터 : 보\n%s : %s\n이겼습니다!\n" ,name, str);
 //				if((str.equals("바위"))) System.out.printf("컴퓨터 : 가위\n%s : %s\n이겼습니다!\n" ,name, str);
 //				if((str.equals("보"))) System.out.printf("컴퓨터 : 바위\n%s : %s\n이겼습니다!\n" ,name, str);
 //				System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : %d\n", drow, lose, win);
+//				break;
+//				
 //			}
 //		}
     	
