@@ -1,7 +1,7 @@
 package com.kh.exam;
 
 import java.util.Scanner;
-
+import java.util.Set;
 
 import com.kh.exam.controller.BookControoller;
 import com.kh.exam.modle.Book;
@@ -9,6 +9,7 @@ import com.kh.exam.modle.Member;
 
 public class Application {
 	Book book[] =  new Book[4];
+	
 	BookControoller bc = new BookControoller();
 	Scanner sc = new Scanner(System.in);
 	Member member = new Member();
@@ -71,11 +72,17 @@ public class Application {
 		
 	}
 	public void rentBook() {
-		
-		Book[] bArr = bc.bookinfo();
-		for(Book b : bArr) {
-			if(b != null)System.out.println(b);
-			}
+//		Member member = new Member();
+//		Book[] bArr = bc.bookinfo();
+//		for(int i = 0; i < bArr.length; i++) {
+//			if(bArr[i] != null)System.out.println(i+1 + "번 도서 : " + bArr[i]);
+//			}
+		bc.bookselect();
+		System.out.print("대여할 도서 번호 선택 : ");
+		int bookNum = Integer.parseInt(sc.nextLine());
+		bc.insertBook(bookNum);
+			
+			
 		}
 		
 		
