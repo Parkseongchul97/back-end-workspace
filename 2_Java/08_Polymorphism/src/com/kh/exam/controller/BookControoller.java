@@ -25,8 +25,9 @@ public class BookControoller {
 		mem.setCoupon(count);
 		
 	}
-	public String bookinfo() {
-		return 
+	public Book[] bookinfo() {
+		return bArr;
+			
 		
 	}	
 		

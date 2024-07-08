@@ -71,12 +71,18 @@ public class Application {
 		
 	}
 	public void rentBook() {
-		for(int i = 0; i< 5; i++) {
-		System.out.println(bc);}
+		
+		Book[] bArr = bc.bookinfo();
+		for(Book b : bArr) {
+			if(b != null)System.out.println(b);
+			}
+		}
+		
+		
 		
 	}
 	
 
 
 
-}
+
