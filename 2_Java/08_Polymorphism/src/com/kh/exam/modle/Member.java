@@ -19,6 +19,7 @@ public class Member {
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -40,6 +41,7 @@ public class Member {
 	public void setBook(Book[] book) {
 		this.book = book;
 	}
+	
 	@Override
 	public String toString() {
 		return "Member [name=" + name + ", age=" + age + ", coupon=" + coupon + ", book=" + Arrays.toString(book) + "]";

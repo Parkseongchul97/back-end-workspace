@@ -10,18 +10,19 @@ public class C_Sorting {
 
 	public static void main(String[] args) {
 		C_Sorting c = new C_Sorting();
-//		c.method1();
+		c.method1();
 //		c.method2();
 //		c.method3();
 //		c.method4();
 //		c.method5();
-		c.method6();
+//		c.method6();
 	}
 	public void method1() {
 		
 		int[] arr = { 7, 5, 9, 0, 3, 1, 6, 2, 4, 8 };
 		
 		System.out.println(Arrays.toString(arr));
+		System.out.println(arr);
 		
 		// 1. 오름차순 정렬 (작은숫자 -> 큰숫자)
 		Arrays.sort(arr); // Dual-Pivot QuickSort 
