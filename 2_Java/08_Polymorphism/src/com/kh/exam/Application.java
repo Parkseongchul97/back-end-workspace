@@ -88,7 +88,7 @@ public class Application {
 		//else if(member의 age랑 book의 accesAge랑 비교 해서 높을 경우){ 
 		// System.out.println("나이제한으로대여불가능입니다.");}
 		else {
-		member.setBook(bc.copyBook(bookNum,num));
+//		member.setBook(bc.copyBook(bookNum,num));
 		System.out.println("성공적으로 대여했습니다.");
 		// member가 가지고 있는 Book의 쿠폰이 true면 member의 쿠폰값이 +1 
 		num++;
