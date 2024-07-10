@@ -63,15 +63,24 @@ public class BookControoller {
 			}
 	
 	}
-	public int Membercoupon() {
-		for(int i = 0; i < mem.getBook().length; i++) {
-			if(memberGetBook(i) != null && memberGetBook(i).isCoupon()== true) {
-				coupon++;
-			}
-	}
-		
-		return coupon;
+	public void Membercoupon(Member member) {
+        int couponCount = 0;
+        for (Book b : member.getBook()) {
+            if (b != null && b.isCoupon()) {
+                couponCount++;
+            }
+        }
+        member.setCoupon(couponCount);
+    }
+	 public boolean reRant(Member member, String title) {
+	        for (Book b : member.getBook()) {
+	            if (b != null && b.getTitle().equals(title)) {
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
 }
-}
+
 
 

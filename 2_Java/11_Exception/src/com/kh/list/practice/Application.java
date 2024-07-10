@@ -34,6 +34,7 @@ public class Application {
 			select = Integer.parseInt(sc.nextLine());	
 		} catch (Exception e) {
 			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+			continue;
 		}
 		switch(select) {
 			case 1: 
@@ -79,7 +80,7 @@ public class Application {
 		System.out.print("가수 명 : ");
 		String name = sc.nextLine();
 		mc.lastInsert(song, name);
-		System.out.println("추가 성공!");
+		
 		
 	}
 	public void menu2() {
@@ -88,7 +89,7 @@ public class Application {
 		System.out.print("가수 명 : ");
 		String name = sc.nextLine();
 		mc.fristInsert(song, name);
-		System.out.println("추가 성공!");
+		
 		
 	}
 	public void menu3() {
@@ -124,7 +125,8 @@ public class Application {
 		
 	}
 	public void menu7() {
-		
+		mc.sortReverse();
+		System.out.println("가수명 기준 내림차순 정렬 완료");
 	}
 	public void menu8() {
 		mc.musicSort();

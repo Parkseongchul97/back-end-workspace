@@ -47,7 +47,14 @@ public class Application {
 		boolean ck = true;
 		while(ck) {
 		System.out.printf("==== 매뉴 ====\n1. 마이페이지\n2. 도서 대여하기 \n3. 프로그램 종료하기\n매뉴 번호 : ");
-		int num = Integer.parseInt(sc.nextLine()) ;
+		int num = 0;
+		try {
+			num =Integer.parseInt(sc.nextLine()) ;
+		} catch (Exception e) {
+			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+			continue;
+		}
+				
 		switch (num) {
 			case 1 : 
 				myPage();
@@ -81,34 +88,32 @@ public class Application {
 		System.out.println("더이상 대여할 수 없습니다.");
 		return;
 		}else {
+			
 
-		if(bc.memberGetBook(0) != null) {
-			if(bc.getbook(bookNum-1).getTitle().charAt(0) == bc.memberGetBook(0).getTitle().charAt(0) )
-					 {
+		if(bc.reRant(member, bc.getbook(bookNum -1).getTitle())) {
 			System.out.println("이미 대여한 책입니다.");
 			return;
+		}
 			}
-				}
+				
 		if(member.getAge() < bc.getbook(bookNum-1).getAccessAge()){ 
 		 System.out.println("나이제한으로대여불가능입니다.");
 		 return; 
 		}else {
-		member.setBook(bc.copyBook(bookNum,num));
+		member.setBook(bc.copyBook(bookNum-1,num));
 		System.out.println("성공적으로 대여했습니다.");
 		bc.memberBookSelect();
-		int couponCount = 0;
+		
 		
 		} 
-		member.setCoupon(bc.Membercoupon());
-		System.out.println(member.getCoupon());
-		// member가 가지고 있는 Book의 쿠폰이 true면 member의 쿠폰값이 +1 
+		bc.Membercoupon(member);
 		num++;
 		}
 			
 		
 	}
 
-}
+
 
 
 
