@@ -9,6 +9,7 @@ public class BookControoller {
 	private Book bArr[] =  new Book[4];
 	private int count = 0;
 	private Book mArr[] = new Book[2];
+	private int coupon = 0;
 	
 	public void settingBook (Book b) {// 책 정보 넣기
 		bArr[count++] = new Book(b.getTitle(), b.isCoupon(), b.getAccessAge());
@@ -18,7 +19,7 @@ public class BookControoller {
 			int j = 0;
 			b = mArr;
 			for(int i = 0; i < b.length; i++) {
-				if (b[i].isCoupon() == true) {
+				if (b[i] != null &&b[i].isCoupon() == true) {
 					j++;
 				}
 			}	 
@@ -34,6 +35,10 @@ public class BookControoller {
 			if(bArr[i] != null)System.out.println(i+1 + "번 도서 : " + bArr[i]);
 			}
 	}
+	public Book getbook(int i) {
+		Book[] bArr = bookinfo();
+		return bArr[i];
+	}
 	
 		
 	public Book[] copyBook(int i, int j) {
@@ -43,9 +48,30 @@ public class BookControoller {
 		
 		
 	}
-	
-	
+	public Book[] memberBookInfo() {
+		return mArr;
+	}
+	public Book memberGetBook(int i) {
+		Book[] mArr = memberBookInfo();
+		return mArr[i];
 	}
 	
+	public void memberBookSelect() {
+		Book[] mArr = memberBookInfo();
+		for(int i = 0; i < mArr.length; i++) {
+			if(bArr[i] != null)System.out.println(i+1 + "번 도서 : " + bArr[i]);
+			}
+	
+	}
+	public int Membercoupon() {
+		for(int i = 0; i < mem.getBook().length; i++) {
+			if(memberGetBook(i) != null && memberGetBook(i).isCoupon()== true) {
+				coupon++;
+			}
+	}
+		
+		return coupon;
+}
+}
 
 

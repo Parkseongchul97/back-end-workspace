@@ -71,36 +71,44 @@ public class Application {
 		System.out.println(member);	
 	}
 	
-	public void rentBook() {
 	
+	public void rentBook() {
+		
 		bc.bookselect();
 		System.out.print("대여할 도서 번호 선택 : ");
 		int bookNum = Integer.parseInt(sc.nextLine());
 		if(num >= 2 ) {
 		System.out.println("더이상 대여할 수 없습니다.");
 		return;
-		}// else if(member의 book의 0번이 현재 선택한 book의 타이틀과 같을시){
-		//System.out.println("이미 대여한 책입니다.");}
-			
-	
-		
-		
-		//else if(member의 age랑 book의 accesAge랑 비교 해서 높을 경우){ 
-		// System.out.println("나이제한으로대여불가능입니다.");}
-		else {
-//		member.setBook(bc.copyBook(bookNum,num));
+		}else {
+
+		if(bc.memberGetBook(0) != null) {
+			if(bc.getbook(bookNum-1).getTitle().charAt(0) == bc.memberGetBook(0).getTitle().charAt(0) )
+					 {
+			System.out.println("이미 대여한 책입니다.");
+			return;
+			}
+				}
+		if(member.getAge() < bc.getbook(bookNum-1).getAccessAge()){ 
+		 System.out.println("나이제한으로대여불가능입니다.");
+		 return; 
+		}else {
+		member.setBook(bc.copyBook(bookNum,num));
 		System.out.println("성공적으로 대여했습니다.");
+		bc.memberBookSelect();
+		int couponCount = 0;
+		
+		} 
+		member.setCoupon(bc.Membercoupon());
+		System.out.println(member.getCoupon());
 		// member가 가지고 있는 Book의 쿠폰이 true면 member의 쿠폰값이 +1 
 		num++;
 		}
 			
-		}
-		
-		
 		
 	}
-	
 
+}
 
 
 
