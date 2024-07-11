@@ -1,15 +1,13 @@
 package com.kh.list.practice;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.kh.list.practice.controller.MusicController;
-import com.kh.list.practice.model.Music;
+
 
 public class Application {
 	MusicController mc = new MusicController();
-	List<Music> list = new ArrayList();
+	
 	Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {

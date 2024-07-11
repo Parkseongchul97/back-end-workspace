@@ -41,8 +41,9 @@ public class MusicController {
 			ck = true;
 			break;
 		}
-		if(!ck)System.out.println("검색된 곡이 없습니다");
+		
 	}
+		if(!ck)System.out.println("검색된 곡이 없습니다");
 	}
 	public void musicRemove(String remove) { // 곡 삭제
 		boolean ck = false ;
@@ -64,11 +65,11 @@ public class MusicController {
 			  	System.out.println(list.get(i).getName() + " - " + list.get(i).getSong() + "으로 변경되었습니다.");
 			  	 
 		}
-			}if(!ck)System.out.println("삭제할 곡이 없습니다");
+			}if(!ck)System.out.println("수정할 곡이 없습니다");
 		
 		
 	}
-	public void sortReverse() {// 가수명 내림차순
+	public void sortReverse() {// 가수명 내림차순??????????
 		
 		Collections.sort(list,new  ReverSort());
 	

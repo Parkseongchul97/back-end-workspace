@@ -1,17 +1,16 @@
-package com.kh.exam;
+package com.kh.practice.library;
 
 import java.util.Scanner;
 
-import com.kh.exam.controller.BookControoller;
-import com.kh.exam.modle.Book;
-import com.kh.exam.modle.Member;
+import com.kh.practice.library.controller.BookControoller;
+import com.kh.practice.library.model.Book;
+
+
+
 
 public class Application {
-	Book book[] =  new Book[4];
-	
 	BookControoller bc = new BookControoller();
 	Scanner sc = new Scanner(System.in);
-	Member member = new Member();
 	int num = 0;
 	
 
@@ -34,15 +33,14 @@ public class Application {
 		Book book4= new Book("귀멸의 칼날 23", false, 19);
 		bc.settingBook(book4);
 	}
-	public void myinfo() {
+	public void myinfo() { // 이름 나이 추가 
 		System.out.print("이름 : ");
 		String name = sc.nextLine();
 		System.out.print("나이 : ");
 		int age = Integer.parseInt(sc.nextLine()) ;
-		member.setName(name);
-		member.setAge(age);
+		bc.memberInfoPuls(name, age);
 	}
-	public void menu() {
+	public void menu() { // 메인 매뉴 
 		boolean ck = true;
 		while(ck) {
 		System.out.printf("==== 매뉴 ====\n1. 마이페이지\n2. 도서 대여하기 \n3. 프로그램 종료하기\n매뉴 번호 : ");
@@ -74,9 +72,8 @@ public class Application {
 	
 	}
 	public void myPage() {
-		System.out.println(member);	
+		bc.memberAllInfo();
 	}
-	
 	
 	public void rentBook() {
 		
@@ -86,26 +83,23 @@ public class Application {
 		if(num >= 2 ) {
 		System.out.println("더이상 대여할 수 없습니다.");
 		return;
-		} else {
-				if (bc.reRant(member, bc.getbook(bookNum - 1).getTitle())) {
-					System.out.println("이미 대여한 책입니다.");
-					return;
-				}
-			}
-			if (member.getAge() < bc.getbook(bookNum - 1).getAccessAge()) {
-				System.out.println("나이제한으로대여불가능입니다.");
-				return;
-				} else {
-					member.setBook(bc.copyBook(bookNum - 1, num));
-					System.out.println("성공적으로 대여했습니다.");
-		
-						}
-						bc.Membercoupon(member);
-						num++;
-}
-			
+		}if(bc.reRant(bc.getbook(bookNum-1).getTitle())) {
+			System.out.println("이미 대여한 책입니다");
+			return;
+		}
+		if(bc.ageAccess(bookNum-1))	{
+			System.out.println("나이제한으로대여불가능입니다");
+			return;
+		}
+		else {
+			bc.copyBook(bookNum-1, num);
+			bc.memberCoupon();
+			num++;	
 		
 	}
+		
+		
+	}}
 
 
 
