@@ -77,7 +77,8 @@ public class Application {
 		String song = sc.nextLine();
 		System.out.print("가수 명 : ");
 		String name = sc.nextLine();
-		mc.lastInsert(song, name);
+		System.out.println(mc.lastInsert(song, name));
+		
 		
 		
 	}
@@ -92,20 +93,24 @@ public class Application {
 	}
 	public void menu3() {
 		System.out.println("****** 전체 곡 목록 출력 ******");
-		mc.musicAllInfo();
+		for(int i = 0; i < mc.musicAllInfo().size();i++) {
+			System.out.println(mc.musicAllInfo().get(i));
+		}
+		
 	}
 	public void menu4() {
 		System.out.printf("****** 특정 곡 검색 ******\n"
 				+ "검색할 곡 명 : ");
 		String search = sc.nextLine();
-		mc.musicSeach(search);
+		
+		System.out.println(mc.musicSeach(search)); 
 		
 	}
 	public void menu5() {
 		System.out.printf("****** 특정 곡 삭제 ******\n"
 				+ "삭제할 곡 명 : ");
 		String remove = sc.nextLine();
-		mc.musicRemove(remove);
+		System.out.println(mc.musicRemove(remove)); 
 		
 	}
 	public void menu6() {
@@ -116,7 +121,7 @@ public class Application {
 		String song = sc.nextLine();
 		System.out.print("수정할 가수 명 : ");
 		String name = sc.nextLine();
-		mc.musicSet(set, song, name);
+		System.out.println(mc.musicSet(set, song, name));
 		// 검색한 곡이 존재 X 일때 문구 
 		
 		
@@ -124,11 +129,17 @@ public class Application {
 	}
 	public void menu7() {
 		mc.sortReverse();
-		System.out.println("가수명 기준 내림차순 정렬 완료");
+		System.out.println("*****가수명 기준 내림차순 정렬 완료*****");
+		for(int i = 0; i < mc.musicAllInfo().size();i++) {
+			System.out.println(mc.musicAllInfo().get(i));
+		}
 	}
 	public void menu8() {
 		mc.musicSort();
-		System.out.println("곡명 오름차순 정렬 완료");
+		System.out.println("*****곡명 오름차순 정렬 완료*****");
+		for(int i = 0; i < mc.musicAllInfo().size();i++) {
+			System.out.println(mc.musicAllInfo().get(i));
+		}
 	}
 	
 }

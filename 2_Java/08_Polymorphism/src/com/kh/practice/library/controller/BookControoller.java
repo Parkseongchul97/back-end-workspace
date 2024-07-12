@@ -9,7 +9,7 @@ public class BookControoller {
 	private Book mArr[] = new Book[2];
 	private Member member;
 	
-	public void memberInfoPuls(String name, int age) { // member에 이름과 나이 추가
+	public void memberInfoPlus(String name, int age) { // member에 이름과 나이 추가
 		Member mem = new Member();
 		mem.setName(name);
 		mem.setAge(age);
@@ -25,13 +25,13 @@ public class BookControoller {
 	public Book[] bookinfo() { // 책목록 다가져오는거
 		return bArr;
 	}	
-	public void bookselect() {
+	public void bookAllInfo() {
 		Book[] bArr = bookinfo();
 		for(int i = 0; i < bArr.length; i++) {
 			if(bArr[i] != null)System.out.println(i+1 + "번 도서 : " + bArr[i]);
 			}
 	}
-	public Book getbook(int i) {// 책 목록에서 1권만 뽑아오는거
+	public Book gettingBook(int i) {// 책 목록에서 1권만 뽑아오는거
 		Book[] bArr = bookinfo();
 		return bArr[i];
 	}
@@ -50,7 +50,7 @@ public class BookControoller {
         }
         member.setCoupon(couponCount);
     }
-	 public boolean reRant(String title) {//책 이름확인
+	 public boolean reRant(String title) {//책 이름확인 (이미대여한책 거르기)
 	        for (Book b : member.getBook()) {
 	            if (b != null && b.getTitle().equals(title)) {
 	                return true;
@@ -59,7 +59,7 @@ public class BookControoller {
 	        return false;
 	    }
 	 public boolean ageAccess (int i) { //나이제한 확인
-		if (member.getAge() < getbook(i).getAccessAge()) {
+		if (member.getAge() < gettingBook(i).getAccessAge()) {
 			return true;
 		}else {
 			return false ;
