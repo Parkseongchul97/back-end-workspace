@@ -103,7 +103,7 @@ public class Application {
 				+ "검색할 곡 명 : ");
 		String search = sc.nextLine();
 		
-		System.out.println(mc.musicSeach(search)); 
+		System.out.println(mc.musicSearch(search)); 
 		
 	}
 	public void menu5() {
