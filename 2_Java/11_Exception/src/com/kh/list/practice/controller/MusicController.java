@@ -10,6 +10,7 @@ import com.kh.list.practice.model.ReverSort;
 public class MusicController {
 	Music music = new Music();
 	List<Music> list = new ArrayList();
+	String str ;
 	
 	
 	public String lastInsert (String song, String name) { // 마지막위치 곡추가
@@ -24,14 +25,13 @@ public class MusicController {
 	
 	public List<String> musicAllInfo() { // 곡 출력
 		List<String> musicList = new ArrayList<>();// 임시 배열	
-		if(!list.isEmpty()) {
+		if(!list.isEmpty()) { // list가 비어있지 않을때만 
 			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i) != null) { // 비어있지 않을떄
 					musicList.add(list.get(i).getName() + " - " + list.get(i).getSong()); // 출력용 배열에 기입
-				}}} return musicList;
+				}} return musicList;
 	}
 	
-	// int  값으로 받기
+	// 해당 인덱스 배열 번호를 int  값으로 받기
 	public int musicSelect(String search) { // 곡 찾기
 		int j = -1;
 		for (int i = 0; i < list.size(); i++) {
@@ -51,11 +51,10 @@ public class MusicController {
 	
 	public String musicRemove(String remove) { // 곡 삭제
 		int i = musicSelect(remove);
-		String str =  "";
-		if (i == -1) str = "검색된 곡이 없습니다";
+		if (i == -1) str = "삭제할 곡이 없습니다";
 	     else {
 	    	 str = list.get(i).getName() + " - " + list.get(i).getSong() + "을(를) 삭제했습니다.\n"; 
-	    		list.remove(i);
+	    	 list.remove(i);
 			}
 		return str;
 	
@@ -63,11 +62,10 @@ public class MusicController {
 	}
 	public String musicSet(String set,String song, String name) { // 곡 수정
 		int i = musicSelect(set);
-		String str = "";
 		if (i == -1) str = "수정할 곡이 없습니다";
 		else {
 			str = list.get(i).getName() + " - " + list.get(i).getSong() + "의 값이 변경되었습니다. ";
-			  list.set( i, new Music( song, name ));		  	 	
+			list.set( i, new Music(song, name));		  	 	
 	}
 		return str;
 	}
