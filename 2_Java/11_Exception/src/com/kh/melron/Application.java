@@ -1,10 +1,11 @@
-package com.kh.list.practice;
+package com.kh.melron;
 
 import java.util.Scanner;
 
-import com.kh.list.practice.controller.MusicController;
+import com.kh.melron.controller.MusicController;
+import com.kh.melron.model.Music;
 
-
+// 풀이
 public class Application {
 	MusicController mc = new MusicController();
 	Scanner sc = new Scanner(System.in);
@@ -14,6 +15,7 @@ public class Application {
 		app.mainMenu();
 	}
 	public void mainMenu() {
+		try {
 		boolean ck = true;
 		while(ck) {
 		System.out.printf("=====메인 메뉴=====\n"
@@ -26,14 +28,8 @@ public class Application {
 				+ "7. 가수 명 내림차순 정렬\n"
 				+ "8. 곡명 오름차순 정렬\n"
 				+ "9. 종료\n매뉴 번호 입력 : ");
-		int select = 0;
-		try {
-			select = Integer.parseInt(sc.nextLine());	
-		} catch (Exception e) {
-			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
-			continue;
-		}
-		switch(select) {
+		
+		switch(Integer.parseInt(sc.nextLine())) {
 			case 1: 
 				menu1();
 				break;
@@ -67,10 +63,18 @@ public class Application {
 				break;
 			
 		
+			}
+
 		}
-	}
+
+			
+		} catch (Exception e) {
+			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+			mainMenu();
+		}
 
 }
+	
 	public void menu1() {
 		System.out.printf("****** 마지막 위치에 곡 추가 ******\n곡 명 : ");
 		String song = sc.nextLine();
@@ -86,7 +90,7 @@ public class Application {
 		String song = sc.nextLine();
 		System.out.print("가수 명 : ");
 		String name = sc.nextLine();
-		mc.fristInsert(song, name);
+		System.out.println(mc.fristInsert(song, name)); 
 		
 		
 	}
@@ -98,32 +102,28 @@ public class Application {
 		
 	}
 	public void menu4() {
-		System.out.printf("****** 특정 곡 검색 ******\n"
-				+ "검색할 곡 명 : ");
+		System.out.printf("****** 특정 곡 검색 ******\n검색할 곡 명 : ");
 		String search = sc.nextLine();
 		
 		System.out.println(mc.musicSearch(search)); 
 		
 	}
 	public void menu5() {
-		System.out.printf("****** 특정 곡 삭제 ******\n"
-				+ "삭제할 곡 명 : ");
+		System.out.printf("****** 특정 곡 삭제 ******\n삭제할 곡 명 : ");
 		String remove = sc.nextLine();
-		System.out.println(mc.musicRemove(remove)); 
+		Music music = mc.musicRemove(remove);
+		if(music != null) System.out.println(music + "(이)가 삭제되었습니다.");
+		else System.out.println("삭제할 곡이 없습니다.");
 		
 	}
 	public void menu6() {
-		System.out.printf("****** 특정 곡 수정 ******\n"
-				+ "검색할 곡 명 : ");
+		System.out.printf("****** 특정 곡 수정 ******\n검색할 곡 명 : ");
 		String set = sc.nextLine();
 		System.out.print("수정할 곡 명 : ");
 		String song = sc.nextLine();
 		System.out.print("수정할 가수 명 : ");
 		String name = sc.nextLine();
 		System.out.println(mc.musicSet(set, song, name));
-		// 검색한 곡이 존재 X 일때 문구 
-		
-		
 		
 	}
 	public void menu7() {

@@ -1,11 +1,12 @@
-package com.kh.list.practice.controller;
+package com.kh.melron.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.kh.list.practice.model.Music;
-import com.kh.list.practice.model.ReverSort;
+import com.kh.melron.compare.Ascending;
+import com.kh.melron.model.Music;
+import com.kh.melron.model.ReverSort;
 
 public class MusicController {
 	Music music = new Music();
@@ -23,16 +24,23 @@ public class MusicController {
 		return "추가 성공!";
 	}
 	
-	public List<String> musicAllInfo() { // 곡 출력
-		List<String> musicList = new ArrayList<>();// 임시 배열	
-		if(!list.isEmpty()) { // list가 비어있지 않을때만 
-			for (int i = 0; i < list.size(); i++) {
-					musicList.add(list.get(i).getName() + " - " + list.get(i).getSong()); // 출력용 배열에 기입
-				}} return musicList;
-	}
+	public List<Music> musicAllInfo() { // 곡 출력
+		return list;
+	}// toString을 변경해서 출력 바로할수있게
+	
 	
 	// 해당 인덱스 배열 번호를 int  값으로 받기
 	public int musicSelect(String search) { // 곡 찾기
+		int j = -1;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getSong().contains(search)) { // contains 포함 되어있으면
+				j = i;
+				
+			}
+		}
+		return j;
+	}
+	public int musicPerpactSelect(String search) { // 곡 찾기
 		int j = -1;
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getSong().equals(search)) {
@@ -47,22 +55,19 @@ public class MusicController {
    int i = musicSelect(search); 
     if (i == -1) return "검색된 곡이 없습니다";
      else return list.get(i).getName() + " - " +list.get(i).getSong() + "을(를) 검색했습니다.\n";
-}
-
+}	// 반환타입 Music으로 해서 Music 받고 어플리케이션에서 if else로 출력해도 좋음
+	// 원하는 메서드 결과값의 리턴값을 이용하면 유연하게 메서드 사용가능
 	
-	public String musicRemove(String remove) { // 곡 삭제
-		int i = musicSelect(remove);
-		if (i == -1) str = "삭제할 곡이 없습니다";
-	     else {
-	    	 str = list.get(i).getName() + " - " + list.get(i).getSong() + "을(를) 삭제했습니다.\n"; 
-	    	 list.remove(i);
+	public Music musicRemove(String remove) { // 곡 삭제
+		for (Music music : list) {
+			if (music.getSong().equals(remove)) {
+				return list.remove(list.indexOf(music));	
 			}
-		return str;
-	
-			
+		}    
+		return null;	
 	}
 	public String musicSet(String set,String song, String name) { // 곡 수정
-		int i = musicSelect(set);
+		int i = musicPerpactSelect(set);
 		if (i == -1) str = "수정할 곡이 없습니다";
 		else {
 			str = list.get(i).getName() + " - " + list.get(i).getSong() + "의 값이 변경되었습니다. ";
@@ -71,13 +76,14 @@ public class MusicController {
 		return str;
 	}
 	
-	public void sortReverse() {// 가수명 내림차순
+	public List<Music> sortReverse() {// 가수명 내림차순
 		Collections.sort(list,new ReverSort());
-		musicAllInfo();
+		return musicAllInfo();
+		// 전체를 그대로로 하고 싶으면 복사용 배열 만들어서 사용 
 	}
-	public void musicSort() { // 곡명 오름차순 
-		Collections.sort(list);
-		musicAllInfo();
+	public List<Music> musicSort() { // 곡명 오름차순 
+		Collections.sort(list, new Ascending());
+		return musicAllInfo();
 	}	
 }
 
