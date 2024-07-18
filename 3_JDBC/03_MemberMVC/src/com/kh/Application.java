@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.kh.controller.MemberController;
-import com.kh.model.Member;
+
 
 public class Application {
+	// 싱글톤 패턴으로 객체 가져올려면
+//	private MemberController mc2 = MemberController.getInstance(); // 객체 생성 메서드로 가져오면댐
 	
 	private Scanner sc = new Scanner(System.in);
 	private MemberController mc = new MemberController();
@@ -77,8 +79,10 @@ public class Application {
 		System.out.print("비밀번호 : ");
 		String password = sc.nextLine();
 		
-		if(mc.login(id, password) != null) {
-			System.out.println(mc.login(id, password) + "님, 환영합니다!");
+		String name = mc.login(id, password);
+		
+		if(name != null) {
+			System.out.println(name + "님, 환영합니다!");
 			System.out.println("login 성공!!!!");
 			memberMenu();
 		}else {
@@ -143,11 +147,12 @@ public class Application {
 		System.out.print("비밀번호 : ");
 		String password = sc.nextLine();
 		
-		if(mc.login(id, password) != null) {
-			System.out.println("현재 설정된 이름 : "+ mc.login(id, password));
+		String name = mc.login(id, password) ;
+		if(name != null) {
+			System.out.println("현재 설정된 이름 : "+ name);
 			System.out.print("변경할 이름 : ");
-			String name = sc.nextLine();
-			System.out.println(mc.changeName(mc.login(id, password), name));
+			String newName = sc.nextLine();
+			System.out.println(mc.changeName(id, newName));
 		}else {
 			System.out.println("이름 변경에 실패했습니다. 다시 입력해 주세요.");
 		}

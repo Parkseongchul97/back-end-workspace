@@ -1,0 +1,23 @@
+package com.kh.model;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @NoArgsConstructor
+@AllArgsConstructor
+public class Member {
+	private int  memberNum;
+	private String memberId; 
+	private String memberPwd; 
+	private String memberName; 
+	private char gender; 
+	private String address ;
+	private String phone ;
+	private char status;
+	private Date enrollDate;
+	
+
+}
