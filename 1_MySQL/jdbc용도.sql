@@ -36,6 +36,9 @@ SELECT * FROM bank;
 INSERT INTO member
 VALUES ('qwer1234', '1234', '김철수');
 
+SELECT *
+FROM book
+LEFT Join publisher ON (pub_no = bk_pub_no);
 
 SELECT * FROM book; /*bk_no 프라이머리키 */
 SELECT * FROM member; /*member_no 프라이머리키 */
@@ -44,3 +47,9 @@ SELECT * FROM rent; /* rent_no 프라이머리
 					rent_mem_no =   member_no
 					rent_book_no = bk_no */
 
+SELECT rent_no, bk_title, bk_author , adddate(rent_date, interval 14 day) as return_date
+FROM rent
+JOIN book ON (rent_book_no = bk_no)
+WHERE rent_mem_no = 5 ;
+SELECT rent_no FROM rent WHERE rent_no = 2;
+delete from rent;

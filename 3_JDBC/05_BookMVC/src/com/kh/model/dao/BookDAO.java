@@ -1,36 +1,45 @@
-package com.kh.controller;
+package com.kh.model.dao;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.kh.model.Book;
+import com.kh.model.vo.Book;
+import com.kh.model.vo.Publisher;
 
-import config.ServerInfo;
-
-public class BookDMLControoller {
+/*
+ * DAO(Data Access Object)
+ * - DB에 접근하는 역할을 하는 객체 (CRUD)
+ * */
+public class BookDAO {
+	DAO c = new DAO();
 	
-	Controoller c = new Controoller();
-	
-	// 1. 책 정보 출력
+	// 책정보
 	public ArrayList<Book> bookAllInfo() throws SQLException {
 		Connection con = c.link();
-		String query = "SELECT * FROM book ";
+		String query = "SELECT * FROM book "
+				+ "LEFT Join publisher ON (pub_no = bk_pub_no) ";
 		PreparedStatement ps = con.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
 		ArrayList<Book> list = new ArrayList<Book>() ;
 		while(rs.next()) {
-			list.add(new Book(rs.getInt("bk_no"), rs.getString("bk_title"), rs.getString("bk_author"), rs.getInt("bk_price"), rs.getInt("bk_pub_no")));
+			Book book = new Book();
+			book.setBookNum(rs.getInt("bk_no"));
+			book.setBookTitle(rs.getString("bk_title"));
+			book.setBookAuthor(rs.getString("bk_author"));
+			Publisher publisher = new Publisher();
+			publisher.setPublisherName(rs.getString("pub_name"));
+			book.setPublisher(publisher);
 			
+			list.add(book);		
 		}
 		c.closeAll(ps, con);
 		return list;
 	}
-	// 2-1. 책 저자, 제목 동일한지 확인
+	// 중복 책이 있느 체크
+	
 	public boolean bookCheck(String bookTitle ,String bookAuthor) throws SQLException {
 		boolean check = false;
 		Connection con = c.link();
@@ -41,9 +50,7 @@ public class BookDMLControoller {
 		
 		ResultSet rs = ps.executeQuery();
 
-		if(rs.next()) 				
-			check = rs.getString("bk_title").equals(bookTitle) 
-				 && rs.getString("bk_author").equals(bookAuthor);
+		check = rs.next();				
 		c.closeAll(ps,con,rs);
 		return check;
 		
@@ -77,7 +84,26 @@ public class BookDMLControoller {
 		return check;
 		
 	}
-	// 3-1. 책 삭제
+	// 3-2. 이미 빌린 책인지 확인
+	public boolean rentBookCheck(int rentBookNum ) throws SQLException {
+		boolean check = false;
+		Connection con = c.link();
+		String query = "SELECT rent_book_no FROM rent WHERE rent_book_no = ? ";
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setInt(1 ,rentBookNum);
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {				
+			check = (rentBookNum == rs.getInt("rent_book_no"));
+			if(check)break;
+		}
+		c.closeAll(ps,con,rs);
+		return check;
+		
+	}
+	
+	
+	// 3-3. 책 삭제
 	public void bookDelete(int bookNum) throws SQLException {
 		
 		Connection con = c.link();
@@ -88,4 +114,6 @@ public class BookDMLControoller {
 		c.closeAll(ps, con);
 
 	}
+	
+
 }

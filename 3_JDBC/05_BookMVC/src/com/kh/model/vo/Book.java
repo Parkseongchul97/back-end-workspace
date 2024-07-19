@@ -1,4 +1,4 @@
-package com.kh.model;
+package com.kh.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,7 @@ public class Book {
 	private String bookTitle;
 	private String bookAuthor;
 	private int	bookPrice;	
-	private int bookPublisherKey;
+	private Publisher publisher;
+
 	
 }

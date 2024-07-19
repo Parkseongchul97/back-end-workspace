@@ -1,4 +1,4 @@
-package com.kh.controller;
+package com.kh.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 import config.ServerInfo;
 
-public class Controoller {
+public class DAO {
 	
-	public Controoller() {
+	public DAO() {
 		try {
 			Class.forName(ServerInfo.DRIVER_NAME);
 		} catch (Exception e) {

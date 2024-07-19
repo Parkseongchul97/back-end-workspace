@@ -1,4 +1,4 @@
-package com.kh.model;
+package com.kh.model.vo;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Rent {
 	private int rentNum;
-	private int rentMemberKey;
-	private int rentBookKey;
+	private Member rentMemberKey;
+	private Book rentBookKey;
 	private Date rentDate;
 }

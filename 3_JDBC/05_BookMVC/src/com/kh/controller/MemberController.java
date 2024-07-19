@@ -5,58 +5,57 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.kh.model.Member;
+import com.kh.model.dao.DAO;
+import com.kh.model.dao.MemberDAO;
+import com.kh.model.dao.RentDAO;
+import com.kh.model.vo.Member;
 
 public class MemberController {
-	Controoller c = new Controoller();
-	
+	DAO c = new DAO();
+	MemberDAO dao = new MemberDAO();
+	RentDAO rdao = new RentDAO();
 	
 	// 1-1. 아이디 체크
-	public boolean idCheck(String memberId) throws SQLException {
-		boolean check = false;
-		Connection con = c.link();
-		String query = "SELECT member_id FROM member WHERE member_id = ?";
-		PreparedStatement ps = con.prepareStatement(query);
-		ps.setString(1 ,memberId);
-		ResultSet rs = ps.executeQuery();
 
-		if(rs.next()) 				
-			check = rs.getString("member_id").equals(memberId);
-		c.closeAll(ps,con,rs);
-		return check;
-}
+
 	// 1-2. 회원가입
 	
-	public void signUpMember(String memberId, String memberPwd, String MemberName) throws SQLException {
-		Connection con = c.link();
-		String query ="INSERT INTO member(member_id, member_pwd, member_name) VALUES (?,?,?)";
-		PreparedStatement ps = con.prepareStatement(query);
-		ps.setString(1, memberId);
-		ps.setString(2, memberPwd);
-		ps.setString(3, MemberName);
-		ps.executeUpdate() ;
-		c.closeAll(ps,con);
+	public boolean signUpMember(String memberId, String memberPwd, String memberName) {
+		try {
+			if(!dao.idCheck(memberId)) { // idCheck는 DB단에서 유니크로 잡혀있어서 여기 try catch문에 잡혀서 필요없음...
+				dao.signUpMember(memberId, memberPwd, memberName);
+				return true;
+			}else
+				return false;
+			
+			
+		} catch (SQLException e) {
+				return false;
+		}
 		
 	}
 
 	// 2. 로그인
-	public Member login(String memberId, String memberPwd) throws SQLException {
-		Connection con = c.link();
-		String query = "SELECT * FROM member WHERE member_id = ? and member_pwd = ?";
-		PreparedStatement ps = con.prepareStatement(query);
-		ps.setString(1 ,memberId);
-		ps.setString(2 ,memberPwd);
-		ResultSet rs = ps.executeQuery();
-		Member member = new Member();
-		if(rs.next()) {
-			member.setMemberId(rs.getString("member_id"));
-			member.setMemberPwd(rs.getString("member_pwd"));
-			member.setMemberName(rs.getString("member_name"));
-			member.setMemberNum(rs.getInt("member_no"));	
+	public Member login(String memberId, String memberPwd)  {
+		try {Member m = dao.login(memberId, memberPwd);
+			if(m.getStatus() == 'N')return m;	
+		} catch (SQLException e) {
+			return null;
 		}
-		c.closeAll(ps,con,rs);
-		return member;
+		return null;
 		
+		
+		
+	}
+	// 회원 탈퇸
+	public void deleteMember(int memberNum) {
+		try {
+			rdao.deleteMemberRent(memberNum);
+			dao.deleteMember(memberNum);
+		} catch (SQLException e) {
+			
+		}
+
 	}
 	
 
