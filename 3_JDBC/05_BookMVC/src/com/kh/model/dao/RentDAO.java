@@ -52,7 +52,7 @@ DAO c = new DAO();
 		// 2. 내가 대여한 책 조회
 		public ArrayList<Rent> printRentBook(int memberNum) throws SQLException {
 			Connection con = c.link();
-			String query = "SELECT rent_no, bk_title, bk_author , adddate(rent_date, interval 14 day) as return_date FROM rent JOIN book ON (rent_book_no = bk_no) WHERE rent_mem_no = ?";
+			String query = "SELECT rent_no, bk_title, bk_author , rent_date , adddate(rent_date, interval 14 day) as return_date FROM rent JOIN book ON (rent_book_no = bk_no) WHERE rent_mem_no = ?";
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setInt(1, memberNum);
 			ResultSet rs = ps.executeQuery();
@@ -64,11 +64,12 @@ DAO c = new DAO();
 				book.setBookTitle(rs.getString("bk_title"));
 				book.setBookAuthor(rs.getString("bk_author"));
 				rent.setRentBookKey(book);
-				rent.setRentDate( rs.getDate("return_date"));
+				rent.setRentDate( rs.getDate("rent_date"));
+//				rent.setRetrunDate( rs.getDate("return_date"));
 		
 				list.add(rent);
 			}
-			c.closeAll(ps, con);
+			c.closeAll(ps, con, rs);
 			return list;
 		}
 		//3-1. 대여 번호 존재하나 확인

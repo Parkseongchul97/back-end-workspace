@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 
 import com.kh.model.dao.BookDAO;
 import com.kh.model.dao.DAO;
@@ -29,11 +31,11 @@ public class RentController {
 					
 				}else {
 					return 1;
-					
+					// 이미 대여된 책일떄
 				}
 				}else {
 					return 2;
-				}
+				}// 책정보 없을떄
 		
 			} catch (Exception e) {
 				return 3;
@@ -47,15 +49,16 @@ public class RentController {
 		public ArrayList<String> printRentBook(int memberNum)  {
 			
 			try {
-				ArrayList<Rent> list = dao.printRentBook(memberNum);
 				ArrayList<String> s = new ArrayList<String>();
-				for(Rent r : list) {
+				for(Rent r : dao.printRentBook(memberNum)) {
 					String str = "";
+					LocalDate localDate = new Date(r.getRentDate().getTime()).toLocalDate();
 					
 					str +=  "대여번호 : "+ r.getRentNum() + "번";
 					str +=  "\t책 이름 : "+ r.getRentBookKey().getBookTitle();
 					str +=  "\t책 저자 : "+ r.getRentBookKey().getBookAuthor();
-					str +=  "\t반납 일 : " + r.getRentDate();
+					str +=  "\t대여 일 : "+ r.getRentDate();
+					str +=  "\t반납 일 : " + localDate.plusDays(14);
 					s.add(str);
 				}
 				
@@ -68,15 +71,7 @@ public class RentController {
 			
 		
 		}
-		//3-1. 대여 번호 존재하나 확인
-		public boolean rentNumCheck(int rentBookNum ,int memberNum)  {
-			try {
-				return dao.rentNumCheck(rentBookNum,memberNum);
-			} catch (SQLException e) {
-				return false;
-			}
-			
-		}
+
 
 
 		// 3. 대여 취소
@@ -99,6 +94,8 @@ public class RentController {
 		public boolean deleteMemberRent(int rentMemberNum) {
 			try {
 				if(dao.allDeleteMemberRentCheck(rentMemberNum)) {
+					
+					
 						dao.deleteMemberRent(rentMemberNum);
 						return true;
 					}else 

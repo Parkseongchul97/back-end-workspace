@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.kh.model.dao.DAO;
 import com.kh.model.dao.MemberDAO;
 import com.kh.model.dao.RentDAO;
 import com.kh.model.vo.Member;
+import com.kh.model.vo.Rent;
 
 public class MemberController {
 	DAO c = new DAO();
@@ -48,13 +50,18 @@ public class MemberController {
 		
 	}
 	// 회원 탈퇸
-	public void deleteMember(int memberNum) {
+	public boolean deleteMember(int memberNum) {
 		try {
+			// 따로 안만들고 rentController에 있는 내가 보유중인 책 확인하는 메서드 이용해도댐
+//			ArrayList<Rent> list= rdao.printRentBook(memberNum);
+//			if (list.size() > 0)// 조건으로 사이즈가 0보다 큰 조건으로 확인
 			rdao.deleteMemberRent(memberNum);
-			dao.deleteMember(memberNum);
+			if(dao.deleteMember(memberNum) == 1)
+			return true;
 		} catch (SQLException e) {
 			
 		}
+		return false;
 
 	}
 	

@@ -13,4 +13,5 @@ public class Rent {
 	private Member rentMemberKey;
 	private Book rentBookKey;
 	private Date rentDate;
+//	private Date retrunDate;
 }

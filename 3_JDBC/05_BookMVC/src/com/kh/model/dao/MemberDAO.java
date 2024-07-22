@@ -55,13 +55,15 @@ public class MemberDAO {
 			return member;
 			
 		}
-		public void deleteMember(int memberNum) throws SQLException {
+		// 회원 탈퇴 
+		public int deleteMember(int memberNum) throws SQLException {
 			Connection con = c.link();
 			String query = "DELECT FORM member WHERE member_no = ?";
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setInt(1, memberNum);
-			ps.executeUpdate();
+			int num = ps.executeUpdate();
 			c.closeAll(ps, con);
+			return num;
 			
 		}
 

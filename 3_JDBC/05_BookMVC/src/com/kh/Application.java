@@ -184,6 +184,7 @@ public class Application {
 		
 		// 아이디, 비밀번호를 사용자한테 입력 받아 
 		// 로그인에 성공하면 "~~님, 환영합니다!" 출력 후 memberMenu() 호출
+		
 		if(mc.login(memberId, memberPwd) != null) {
 			member = mc.login(memberId, memberPwd);
 			System.out.println(member.getMemberName() + "님, 환영합니다!" );
@@ -260,6 +261,9 @@ public class Application {
 				case 2 :
 					System.out.println("책 정보가 없습니다.");
 					break;
+				case 3 : 
+					System.out.println("책을 대여하는데 실패했습니다.");
+					break;
 			}
 		
 		
@@ -273,12 +277,11 @@ public class Application {
 		
 		 ArrayList<String> list = rc.printRentBook(member.getMemberNum());
 		 try {
-			 if(list.get(0)!=null) {
-				 System.out.println("***** 내가 대여한 책 목록 *****");
+			System.out.println("***** 내가 대여한 책 목록 *****");
 			 for(String s : list) {
 				System.out.println(s);
 			}
-			 }
+			 
 		} catch (Exception e) {
 			System.out.println("대여한 책이 없습니다.");
 		}
