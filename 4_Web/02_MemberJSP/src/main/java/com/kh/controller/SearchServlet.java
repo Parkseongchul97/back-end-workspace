@@ -1,36 +1,35 @@
-package servlet.http;
+package com.kh.controller;
 
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 
+import com.kh.model.dao.MemberDAO;
+import com.kh.model.vo.Member;
 
-@WebServlet("/word")
-public class WordServlet extends HttpServlet {
+@WebServlet("/search")
+public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 인코딩! -> 한글 처리 
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		System.out.println("word로 요청 받음!");
-		String keyword = request.getParameter("keyword");
-		System.out.println(keyword);
 		
-		// 응답!
-		PrintWriter out = response.getWriter();
-		out.println("<html><body>");
-		out.println("<h1>Client Send Data : " + keyword + "</h1>");
-		out.println("</body></html>");
+		String memberId = request.getParameter("id");
 		
-		out.close();
+		MemberDAO dao = new MemberDAO();
+		try {
+			Member mem = dao.searchMember(memberId);
+			request.setAttribute("mem", mem);
+		} catch (SQLException e) {
+			
+		}
+		request.getRequestDispatcher("search.jsp").forward(request, response);
 	}
 
 }

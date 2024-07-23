@@ -47,9 +47,12 @@ SELECT * FROM rent; /* rent_no 프라이머리
 					rent_mem_no =   member_no
 					rent_book_no = bk_no */
 
+SELECT * FROM member.member;
+
 SELECT rent_no, bk_title, bk_author , adddate(rent_date, interval 14 day) as return_date
 FROM rent
 JOIN book ON (rent_book_no = bk_no)
 WHERE rent_mem_no = 5 ;
 SELECT rent_no FROM rent WHERE rent_no = 2;
-delete from rent;
+delete from member.member
+WHERE id = "";
