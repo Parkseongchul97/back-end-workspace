@@ -10,16 +10,17 @@
 </head>
 <body>
 	<h1>전체 회원 정보</h1>
+	<a href="/">돌아가기</a>
 	<ul>
 	<%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("memberList");
-	if(list != null){
+	
 	for(Member m : list){%>
 		<h2><%= m.getName() %>님의 회원 정보 </h2>
 		<p>아이디 : <%= m.getId() %> </p> 
 		<p>비밀번호 : <%= m.getPwd() %> </p><br>
 		
-	<%}} %>
+	<%} %>
 	</ul>
 </body>
 </html>

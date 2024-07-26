@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>회원 관리 기능</h1>
-	
+	<%int count = 0; %>
 	<ul>
 	<%Member member = null;
 		member = (Member)session.getAttribute("longinMember");
