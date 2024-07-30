@@ -49,10 +49,10 @@ CREATE TABLE user ( -- 유저
 
 CREATE TABLE membership ( -- 클럽
     membership_code INT PRIMARY KEY auto_increment, -- 클럽코드
-    membership_Name VARCHAR(100) UNIQUE, -- 클럽이름
+    membership_name VARCHAR(100) UNIQUE, -- 클럽이름
     membership_img TEXT, -- 클럽메인사진
 	membership_info TEXT, -- 클럽소개
-    membership_DATE DATE DEFAULT(current_date), -- 클럽생성날짜
+    membership_date DATE DEFAULT(current_date), -- 클럽생성날짜
     membership_grade DECIMAL(2,1) DEFAULT(0), -- 클럽 별점
     membership_max INT -- 클럽최대인원
 
@@ -94,10 +94,31 @@ CREATE TABLE channel ( -- 클럽채널
 CREATE TABLE meetings ( -- 클럽모임게시판
     meet_code INT PRIMARY KEY auto_increment, -- 모임게시판코드
     membership_code INT, -- 클럽코드 /외래키
-    meet_calendar DATE, -- 캘린더
-    meet_yn BOOLEAN, -- 참여여부
-    meet_info TEXT -- 모임관련 정보
+    meet_date_start DATE, -- 모임 시작일
+    meet_date_end DATE, -- 모임 종료일
+    meet_agree_code INT, -- 참여여부 테이블 연결
+    meet_info TEXT, -- 모임관련 정보
+    meet_creat_date DATE default(current_date)
 );
+CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트 참여여부 테이블 
+	meet_agree_code INT PRIMARY KEY auto_increment,
+    meet_agree_yn BOOLEAN DEFAULT(false),
+    list_code INT
+);
+
+
+
+-- 클럽 모임 게시판에 댓글기능 추가 
+CREATE TABLE meetings_comment (
+    meet_comment_code INT PRIMARY KEY auto_increment, -- 댓글코드
+    meet_comment_text TEXT, -- 모임게시판 댓글 내용
+    meet_comment_date DATE DEFAULT(current_date), -- 댓글 게시시간
+	user_code INT, --  /외래키  누가 ?
+	meet_code INT, -- /왜래키 어떤클럽 홍보 게시판?
+	meet_parents_comment_code INT -- /대댓글
+
+);
+
 
 
 CREATE TABLE main ( -- 클럽홍보게시판
@@ -113,13 +134,13 @@ CREATE TABLE main ( -- 클럽홍보게시판
 
 
 -- 확정
-CREATE TABLE comment (
-    comment_code INT PRIMARY KEY auto_increment, -- 댓글코드
-    comment_text TEXT, -- 홍보게시판 댓글 내용
-    comment_date DATE DEFAULT(current_date), -- 댓글 게시시간
+CREATE TABLE main_comment (
+    main_comment_code INT PRIMARY KEY auto_increment, -- 댓글코드
+    main_comment_text TEXT, -- 홍보게시판 댓글 내용
+    main_comment_date DATE DEFAULT(current_date), -- 댓글 게시시간
 	user_code INT, --  /외래키  누가 ?
 	main_code INT, -- /왜래키 어떤클럽 홍보 게시판?
-	parents_comment_code INT -- /대댓글
+	main_parents_comment_code INT -- /대댓글
 
 );
 
@@ -153,13 +174,24 @@ ALTER TABLE channel ADD  FOREIGN KEY (user_code) REFERENCES user(user_code);
 ALTER TABLE channel ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 ALTER TABLE meetings ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+ALTER TABLE meetings ADD  FOREIGN KEY (meet_agree_code) REFERENCES meetings_agree(meet_agree_code);
+
+ALTER TABLE meetings_agree ADD  FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+
+ALTER TABLE meetings_comment ADD  FOREIGN KEY (user_code) REFERENCES user(user_code);
+ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_code) REFERENCES meetings(meet_code);
+ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_parents_comment_code) REFERENCES meetings_comment(meet_comment_code);
 
 ALTER TABLE main ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 ALTER TABLE main ADD  FOREIGN KEY (user_code) REFERENCES user(user_code);
 
-ALTER TABLE comment ADD  FOREIGN KEY (user_code) REFERENCES user(user_code);
-ALTER TABLE comment ADD  FOREIGN KEY (main_code) REFERENCES main(main_code);
-ALTER TABLE comment ADD  FOREIGN KEY (parents_comment_code) REFERENCES comment(comment_code);
+
+
+ALTER TABLE main_comment ADD  FOREIGN KEY (user_code) REFERENCES user(user_code);
+ALTER TABLE main_comment ADD  FOREIGN KEY (main_code) REFERENCES main(main_code);
+ALTER TABLE main_comment ADD  FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
+
+
 
 ALTER TABLE img ADD  FOREIGN KEY (meet_code) REFERENCES meetings(meet_code);
 ALTER TABLE img ADD  FOREIGN KEY (main_code) REFERENCES main(main_code);

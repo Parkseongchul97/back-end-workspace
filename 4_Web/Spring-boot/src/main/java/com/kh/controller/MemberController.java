@@ -24,6 +24,11 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+	
 	@GetMapping("register")
 	public void register() {}// 앞뒤로 설정에 넣은 /WEB-INF/views + "register" + .jsp 를 스프링이 넣어줌
 	

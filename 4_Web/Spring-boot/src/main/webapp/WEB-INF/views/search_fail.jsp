@@ -7,13 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>**로그인**</h1>
-	<form action="/login" method="post">
-	 ID : <input type="text" name="id" ><br>
-	 PASSWORD : <input type="password" name="pwd" ><br>
-	  <input type="submit" value="제출">
-	</form>
+	<h1>해당 ID에 해당하는 회원 정보가 없습니다.</h1>
 	<a href="/">돌아가기</a>
-
 </body>
 </html>

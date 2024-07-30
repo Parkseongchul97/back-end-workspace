@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>회원 검색 </h1>
-	<form action="/find" method="get">
-		회원 ID 입력 : <input type="text" name="id"><br>
-		<input type="submit" value="검색" >
-	</form>
-	<a href="/">돌아가기</a>
+	<li><a href="/register">회원가입</a></li>
 </body>
 </html>
