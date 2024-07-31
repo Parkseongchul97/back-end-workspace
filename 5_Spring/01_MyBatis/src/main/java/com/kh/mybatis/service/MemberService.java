@@ -1,5 +1,7 @@
 package com.kh.mybatis.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +22,16 @@ public class MemberService {
 	public void register(Member member) {
 		mapper.register(member);
 	}
+	public ArrayList<Member> allMember(){
+		return mapper.allMember();
+	}
+	public Member login(Member member) {
+		return mapper.login(member);
+		
+	}
+	public void update(Member member) {
+		
+		mapper.update(member);
+	}
+
 }

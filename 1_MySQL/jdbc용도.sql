@@ -58,3 +58,5 @@ SELECT rent_no FROM rent WHERE rent_no = 2;
 
 delete from member.member
 WHERE id = "";
+
+
