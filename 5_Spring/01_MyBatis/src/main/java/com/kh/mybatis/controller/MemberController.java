@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
 import com.kh.mybatis.service.MemberService;
 import com.mysql.cj.Session;
@@ -79,7 +80,18 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
-	
+	@GetMapping("/search")
+	public String search(SearchDTO dto, Model model) {
+		model.addAttribute("search", service.search(dto));   
+
+		return "index";
+	}
+	@PostMapping("/delete")	// 리퀘스트 파람으로 받으면 필수처리가 디폴트라 풀어줘야함!
+	public String delete(@RequestParam(name= "idList",required = false) ArrayList<String> idList) {
+		if(idList != null)
+		service.delete(idList);
+		return "redirect:/";
+	}
 
 
 	

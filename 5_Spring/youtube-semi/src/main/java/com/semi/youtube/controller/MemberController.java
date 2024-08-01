@@ -1,4 +1,4 @@
-package com.semi.yotube.controller;
+package com.semi.youtube.controller;
 
 import org.springframework.stereotype.Controller;
 

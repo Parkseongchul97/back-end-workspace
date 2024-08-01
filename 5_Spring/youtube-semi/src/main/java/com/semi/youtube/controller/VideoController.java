@@ -1,4 +1,4 @@
-package com.semi.yotube.controller;
+package com.semi.youtube.controller;
 
 import org.springframework.stereotype.Controller;
 
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 public class VideoController {
 	
 	// 비디오 전체 목록 보기
+	
 	
 	// 비디오 1개 보여주기
 	
