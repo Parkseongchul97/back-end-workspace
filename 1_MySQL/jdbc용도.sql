@@ -1,3 +1,12 @@
+CREATE TABLE board(
+	no INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200),
+    content TEXT,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    url VARCHAR(200)
+);
+
+
 CREATE TABLE person(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(20),
@@ -8,14 +17,14 @@ CREATE TABLE person(
 SELECT * FROM person; 
 CREATE TABLE member(
 	id VARCHAR(30) PRIMARY KEY ,
-    password VARCHAR(30),
+    password VARCHAR(60),
 	name VARCHAR(10)
 );
 Drop table member;
 
 
 SELECT * FROM member;
-
+SELECT * FROM board;
 CREATE TABLE bank(
 	name VARCHAR(20),
     balance INT

@@ -19,6 +19,7 @@ header {
   display: flex;
   justify-content: space-between;
   height: 60px;
+  z-index: 1;
 }
 .header-start {
   display: flex;
@@ -85,6 +86,7 @@ main nav {
   padding-left: 15px;
   align-items: center;
   background-color: white;
+  z-index: 1;
 }
 main nav a {
   background-color: #eee;
@@ -137,10 +139,15 @@ main section {
   }
 }
 /* 비디오 섹션*/
+section{ 
+	display: flex;
+	flex-wrap:  wrap;
+}
 .video-card {
   width: 350px;
   border-radius: 10px;
   cursor: pointer;
+  margin: 10px
 }
 .video-card:hover .video-main video {
   display: block;

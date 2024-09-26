@@ -1,13 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>JjapTube</title>
+
 <link rel="icon"
 	href="https://www.youtube.com/s/desktop/ae4ecf92/img/favicon_144x144.png" />
-<link rel="stylesheet" href="../resources/static/css/reset.css" />
-<link rel="stylesheet" href="../resources/static/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
 </head>
@@ -58,44 +63,43 @@
 				<i class="fa-solid fa-magnifying-glass"></i>
 			</button>
 		</div>
+		
 		<div class="header-end">
-			<button type="button">
-				<i class="fa-solid fa-user"></i>
-			</button>
+				<sec:authorize access="!isAuthenticated">
+					<button type="button" onclick="location.href='/login'">
+						로그인</button>
+					</sec:authorize>
+				<sec:authorize access="isAuthenticated"> <!--  인증시에 -->	
+					<button type="button" onclick="location.href='/logout'">
+						로그아웃</button>
+					</sec:authorize>	
+					
+				
+			
 		</div>
 	</header>
-	<main>
-		<aside>
-			<a href=""> <i class="fa-solid fa-house"></i> <span>홈</span>
-			</a> <a href=""> <i class="fa-solid fa-folder"></i> <span>구독</span>
-			</a>
-		</aside>
-		<div class="main-content">
-			<nav>
-				<a href="" class="active">전체</a> <a href="">음악</a> <a href="">게임</a>
-				<a href="">뉴스</a> <a href="">라이브</a> <a href="">야생생물</a>
-			</nav>
-			<section>
-			<c:forEach items="${list}" var="video">
-			<div class="video-card">
-				<div class="video-main">
-                    <img src="http://192.168.10.51:8082/thumbnail/akmu.webp" >
-					<video  src="http://192.168.10.51:8082/video/AKMU1.mp4" controls="controls" ></video>
-					
-				</div> 
-				<div class="video-info">
-					<img src="http://192.168.10.51:8082/channel/akmu.jpg" >
-					<div class="video-desc">
-						<h2>AKMU - 후라이의 꿈 LIVE CLIP (FESTIVAL ver.)</h2>
-						<p>AKMU</p>
-						<p>조회수 0회ㆍ1일전</p>
-					</div> 
-				</div>
-			</div>
-			</c:forEach>
-			</section>
-		</div>
-	</main>
-	<script src="/youtube/script.js"></script>
-</body>
-</html>
+	<script>
+	$('#member').click((e)=>{
+		e.preventDefault();
+		$.ajax({
+			url: "/uesr",
+			type: 'get',
+			beforeSend: function(xhr) {
+				// 키 값 으로보냄 
+				xhr.setRequestHeader("Authorization","Bearer " + token);
+			},
+			success: function(data) {
+				console.log(data);
+				$('body').html(data);
+			},
+			error: function() {
+				alert("로그인후 접근 가능합니다!");
+				location.href = "/login";
+				
+			}
+			
+		});
+		
+	});
+	</script>
+	</body>

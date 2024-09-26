@@ -17,4 +17,6 @@ public interface MemberMapper {
 	void update(Member member);
 	ArrayList<Member> search(SearchDTO dto); 
 	void delete(ArrayList<String> idList) ;
+	Member nicknameCheck(Member member);
+	Member idCheck(Member member);
 }
