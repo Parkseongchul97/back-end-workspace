@@ -69,3 +69,19 @@ delete from member.member
 WHERE id = "";
 
 
+
+
+
+select * from movie;
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,7 +6,8 @@ CREATE TABLE user( -- 유저 테이블
     user_password TEXT, -- 유저 비밀번호 (암호화)
     user_nickname VARCHAR(30) UNIQUE, -- 유저 닉네임 중복 X
     user_img_url TEXT, -- 유저 프로필 이미지 URL(서버에 저장할)
-    user_info TEXT -- 유저 자기소개란
+    user_info TEXT, -- 유저 자기소개란
+    user_point INT DEFAULT 0
 --  ,user_role VARCHAR(30) -- 유저 권한 (관리자, 일반회원) ? 일단 중요도 낮음
 );
 
